@@ -1,0 +1,160 @@
+/**
+ * Link Component Styles
+ *
+ * YAML Specification: /yaml/components/link.yaml
+ *
+ * This is the single source of truth for Link styling.
+ * Used by both React and Web Components implementations.
+ *
+ * Class Naming Convention: BEM (Block Element Modifier)
+ * - Block: .ds-link
+ * - Element: .ds-link__icon, .ds-link__text
+ * - Modifier: .ds-link--inline, .ds-link--nav
+ */
+
+/* Base Link */
+.ds-link {
+  /* Reset default anchor styles */
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+
+  /* Common link styles */
+  display: inline-flex;
+  align-items: center;
+  transition-property: color, text-decoration-color;
+  transition-duration: var(--transition-fast);
+  transition-timing-function: ease-in-out;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+/* ==================== VARIANTS ==================== */
+
+/* Inline Variant */
+.ds-link--inline {
+  color: var(--color-brand-primary-600);
+  text-decoration: underline;
+  text-decoration-color: var(--color-brand-primary-600);
+}
+
+.ds-link--inline:hover {
+  color: var(--color-brand-primary-700);
+  text-decoration-color: var(--color-brand-primary-700);
+}
+
+.ds-link--inline:visited {
+  color: var(--color-brand-secondary-700);
+  text-decoration-color: var(--color-brand-secondary-700);
+}
+
+/* Standalone Variant */
+.ds-link--standalone {
+  color: var(--color-brand-primary-600);
+  text-decoration: none;
+}
+
+.ds-link--standalone:hover {
+  color: var(--color-brand-primary-700);
+  text-decoration: underline;
+}
+
+.ds-link--standalone:visited {
+  color: var(--color-brand-secondary-700);
+}
+
+/* Nav Variant */
+.ds-link--nav {
+  color: var(--color-neutral-700);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-link--nav:hover {
+  color: var(--color-brand-primary-600);
+}
+
+.ds-link--nav.ds-link--active {
+  color: var(--color-brand-primary-700);
+}
+
+/* ==================== SIZES ==================== */
+
+/* Small Size */
+.ds-link--small {
+  padding: 2px 0;
+  gap: 4px;
+  font-size: var(--font-size-sm);
+}
+
+.ds-link--small .ds-link__icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Medium Size */
+.ds-link--medium {
+  padding: 4px 0;
+  gap: 4px;
+  font-size: var(--font-size-base);
+}
+
+.ds-link--medium .ds-link__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Large Size */
+.ds-link--large {
+  padding: 4px 0;
+  gap: 8px;
+  font-size: var(--font-size-lg);
+}
+
+.ds-link--large .ds-link__icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ==================== ELEMENTS ==================== */
+
+.ds-link__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ds-link__text {
+  display: inline-block;
+}
+
+/* External link indicator - smaller icon */
+.ds-link--external .ds-link__icon--right {
+  font-size: 0.85em;
+}
+
+/* ==================== STATES ==================== */
+
+/* Focus State */
+.ds-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: 2px;
+}
+
+/* Active/Current state for navigation */
+.ds-link--nav.ds-link--active {
+  position: relative;
+}
+
+.ds-link--nav.ds-link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-brand-primary-700);
+}
+

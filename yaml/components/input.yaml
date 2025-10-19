@@ -1,0 +1,413 @@
+# Input Component
+# Form input element for user data entry
+
+metadata:
+  name: Input
+  description: A text input field for collecting user data
+  category: Forms
+  version: 1.0.0
+  complexity: intermediate
+
+# Available variants (input types)
+variants:
+  - name: text
+    description: Standard text input
+    default: true
+
+  - name: password
+    description: Password input with obscured characters
+
+  - name: email
+    description: Email input with validation
+
+  - name: search
+    description: Search input with optional clear button
+
+  - name: tel
+    description: Telephone number input
+
+  - name: url
+    description: URL input with validation
+
+  - name: number
+    description: Numeric input with optional step controls
+
+# Available sizes
+sizes:
+  - name: small
+    description: Compact input for dense forms
+
+  - name: medium
+    description: Standard input size
+    default: true
+
+  - name: large
+    description: Larger input for emphasis or accessibility
+
+# Component states
+states:
+  - name: default
+    description: Normal resting state
+
+  - name: hover
+    description: Mouse cursor is over the input
+    trigger: ":hover"
+
+  - name: focus
+    description: Input has keyboard focus
+    trigger: ":focus"
+    accessibility: true
+
+  - name: error
+    description: Input contains invalid data
+    accessibility: true
+
+  - name: disabled
+    description: Input cannot be interacted with
+    trigger: "disabled attribute"
+    accessibility: true
+
+  - name: readonly
+    description: Input value cannot be changed but can be selected
+    trigger: "readonly attribute"
+    accessibility: true
+
+  - name: filled
+    description: Input has a value
+
+# Props/Attributes
+props:
+  - name: type
+    type: enum
+    description: Type of input field
+    default: text
+    options:
+      - text
+      - password
+      - email
+      - search
+      - tel
+      - url
+      - number
+
+  - name: value
+    type: string
+    description: Current value of the input
+    required: false
+
+  - name: defaultValue
+    type: string
+    description: Default value for uncontrolled inputs
+    required: false
+
+  - name: placeholder
+    type: string
+    description: Placeholder text shown when empty
+    required: false
+
+  - name: label
+    type: string
+    description: Label text for the input
+    required: false
+    notes: Highly recommended for accessibility
+
+  - name: helpText
+    type: string
+    description: Helper text displayed below input
+    required: false
+
+  - name: errorText
+    type: string
+    description: Error message displayed when in error state
+    required: false
+
+  - name: required
+    type: boolean
+    description: Whether the input is required
+    default: false
+
+  - name: disabled
+    type: boolean
+    description: Whether the input is disabled
+    default: false
+
+  - name: readonly
+    type: boolean
+    description: Whether the input is read-only
+    default: false
+
+  - name: name
+    type: string
+    description: Name attribute for form submission
+    required: false
+
+  - name: id
+    type: string
+    description: Unique identifier for the input
+    required: false
+    notes: Auto-generated if not provided when label is present
+
+  - name: autoComplete
+    type: string
+    description: HTML autocomplete attribute
+    required: false
+
+  - name: autoFocus
+    type: boolean
+    description: Whether to focus input on mount
+    default: false
+
+  - name: maxLength
+    type: number
+    description: Maximum number of characters
+    required: false
+
+  - name: minLength
+    type: number
+    description: Minimum number of characters
+    required: false
+
+  - name: pattern
+    type: string
+    description: Regex pattern for validation
+    required: false
+
+  - name: onChange
+    type: function
+    description: Callback when value changes
+    required: false
+
+  - name: onBlur
+    type: function
+    description: Callback when input loses focus
+    required: false
+
+  - name: onFocus
+    type: function
+    description: Callback when input receives focus
+    required: false
+
+  - name: icon
+    type: icon
+    description: Icon to display inside input
+    required: false
+
+  - name: iconPosition
+    type: enum
+    description: Position of icon within input
+    default: left
+    options:
+      - left
+      - right
+
+# Accessibility requirements
+accessibility:
+  role: textbox (implicit for input elements)
+
+  keyboard:
+    - key: Tab
+      action: Navigate to/from input
+    - key: Escape
+      action: Clear focus (for search inputs)
+
+  labels:
+    required: true
+    description: Every input must have an associated label
+    implementation:
+      - Use <label> element with for attribute matching input id
+      - Or wrap input with <label> element
+      - Or use aria-label or aria-labelledby
+
+  aria:
+    - attribute: aria-label
+      required: when no visible label
+      description: Provides accessible name
+
+    - attribute: aria-labelledby
+      required: when label is separate element
+      description: References label element by id
+
+    - attribute: aria-describedby
+      required: when help text or error message present
+      description: References help/error text for screen readers
+
+    - attribute: aria-invalid
+      required: when in error state
+      description: Indicates input contains invalid value (true/false)
+
+    - attribute: aria-required
+      required: when input is required
+      description: Indicates required field (true/false)
+
+  focus:
+    required: true
+    visible: true
+    description: Must have clear visual focus indicator
+
+  screen-reader:
+    - Label must be announced with input
+    - Help text must be associated and announced
+    - Error messages must be announced when present
+    - Required state must be announced
+    - Disabled/readonly state must be announced
+
+# Visual styling map (references design tokens)
+styling:
+  input:
+    background: "colors.assignments.input.background"
+    background-disabled: "colors.assignments.input.background-disabled"
+    background-readonly: "colors.assignments.input.background-readonly"
+    color: "colors.assignments.input.text"
+    color-placeholder: "colors.assignments.input.text-placeholder"
+    color-disabled: "colors.assignments.input.text-disabled"
+    border-color: "colors.assignments.input.border"
+    border-color-hover: "colors.assignments.input.border-hover"
+    border-color-focus: "colors.assignments.input.border-focus"
+    border-color-error: "colors.assignments.input.border-error"
+    border-color-disabled: "colors.assignments.input.border-disabled"
+
+  label:
+    color: "colors.assignments.input.label"
+    font-size: "typography.components.input.label.font-size"
+    font-weight: "typography.components.input.label.font-weight"
+    line-height: "typography.components.input.label.line-height"
+
+  help-text:
+    color: "colors.assignments.input.help-text"
+    font-size: "typography.components.input.help-text.font-size"
+    line-height: "typography.components.input.help-text.line-height"
+
+  error-text:
+    color: "colors.assignments.input.error-text"
+    font-size: "typography.components.input.error-text.font-size"
+    font-weight: "typography.components.input.error-text.font-weight"
+    line-height: "typography.components.input.error-text.line-height"
+
+  sizes:
+    small:
+      padding-x: "spacing.components.input.small.padding-x"
+      padding-y: "spacing.components.input.small.padding-y"
+      height: "spacing.components.input.small.height"
+      font-size: "typography.components.input.field.small.font-size"
+      line-height: "typography.components.input.field.small.line-height"
+      label-margin-bottom: "spacing.components.input.small.label-margin-bottom"
+      help-text-margin-top: "spacing.components.input.small.help-text-margin-top"
+      icon-size: 16
+
+    medium:
+      padding-x: "spacing.components.input.medium.padding-x"
+      padding-y: "spacing.components.input.medium.padding-y"
+      height: "spacing.components.input.medium.height"
+      font-size: "typography.components.input.field.medium.font-size"
+      line-height: "typography.components.input.field.medium.line-height"
+      label-margin-bottom: "spacing.components.input.medium.label-margin-bottom"
+      help-text-margin-top: "spacing.components.input.medium.help-text-margin-top"
+      icon-size: 20
+
+    large:
+      padding-x: "spacing.components.input.large.padding-x"
+      padding-y: "spacing.components.input.large.padding-y"
+      height: "spacing.components.input.large.height"
+      font-size: "typography.components.input.field.large.font-size"
+      line-height: "typography.components.input.field.large.line-height"
+      label-margin-bottom: "spacing.components.input.large.label-margin-bottom"
+      help-text-margin-top: "spacing.components.input.large.help-text-margin-top"
+      icon-size: 24
+
+  common:
+    border-radius: "effects.components.input.border-radius"
+    border-width: "effects.components.input.border-width"
+    shadow: "effects.components.input.shadow"
+    shadow-focus: "effects.components.input.shadow-focus"
+    transition-duration: "effects.components.input.transition-duration"
+    transition-timing: "effects.components.input.transition-timing"
+    transition-property: "effects.components.input.transition-property"
+
+    focus:
+      ring-width: "effects.components.input.focus.ring-width"
+      ring-offset: "effects.components.input.focus.ring-offset"
+      ring-color: "effects.components.input.focus.ring-color"
+
+# Composition structure
+composition:
+  - container
+    - label (optional)
+    - input-wrapper
+      - icon (optional, left)
+      - input element
+      - icon (optional, right)
+    - help-text (optional)
+    - error-text (conditional, shown when error state)
+
+# Behavior specifications
+behavior:
+  - Label clicks focus the associated input
+  - Required inputs show asterisk or indicator in label
+  - Error state displays error message and changes border color
+  - Help text is always visible, error text replaces it when in error state
+  - Password inputs can optionally show/hide password toggle
+  - Search inputs can include clear button when filled
+  - Icon position adjusts padding to prevent text overlap
+  - Disabled inputs show disabled cursor and prevent all interaction
+  - Readonly inputs allow selection and copying but not editing
+
+# Usage guidelines
+guidelines:
+  do:
+    - Always provide a visible label or aria-label
+    - Use help text to clarify expected input format
+    - Show error messages that explain how to fix the issue
+    - Mark required fields clearly
+    - Use appropriate input types (email, tel, etc.)
+    - Set autocomplete for common fields
+    - Provide clear placeholder examples (not instructions)
+
+  dont:
+    - Use placeholder as replacement for label
+    - Show error state without error message
+    - Make inputs too narrow for expected content
+    - Disable without clear reason visible to user
+    - Use validation that's too strict or unclear
+
+# Examples of common use cases
+examples:
+  - name: Basic Text Input
+    props:
+      type: text
+      label: "Full Name"
+      placeholder: "John Doe"
+      size: medium
+      required: true
+
+  - name: Email Input with Help Text
+    props:
+      type: email
+      label: "Email Address"
+      placeholder: "you@example.com"
+      helpText: "We'll never share your email"
+      autoComplete: email
+      required: true
+
+  - name: Password Input
+    props:
+      type: password
+      label: "Password"
+      placeholder: "Enter your password"
+      autoComplete: current-password
+      required: true
+
+  - name: Input with Error
+    props:
+      type: email
+      label: "Email Address"
+      value: "invalid-email"
+      errorText: "Please enter a valid email address"
+      required: true
+
+  - name: Search Input with Icon
+    props:
+      type: search
+      placeholder: "Search..."
+      icon: "search"
+      iconPosition: left
+

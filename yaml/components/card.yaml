@@ -1,0 +1,346 @@
+# Card Component
+# Container component for grouping related content
+
+metadata:
+  name: Card
+  description: A flexible container component for grouping and displaying related content
+  category: Layout
+  version: 1.0.0
+  complexity: intermediate
+
+# Available variants
+variants:
+  - name: default
+    description: Standard card with subtle border
+    default: true
+
+  - name: interactive
+    description: Card that responds to hover and can be clicked
+
+  - name: outlined
+    description: Card with emphasized border and no shadow
+
+  - name: elevated
+    description: Card with prominent shadow elevation
+
+# Sizes
+# Cards are content-driven and don't have fixed size variants
+# Width is typically controlled by parent layout
+sizes:
+  flexible: true
+  description: Card adapts to content and parent container width
+  min-width: 200
+  recommended-max-width: 600
+
+# Component states
+states:
+  - name: default
+    description: Normal resting state
+
+  - name: hover
+    description: Mouse cursor is over the card (interactive variant only)
+    trigger: ":hover"
+    applies-to: interactive variant
+
+  - name: focus
+    description: Card has keyboard focus (interactive variant only)
+    trigger: ":focus"
+    accessibility: true
+    applies-to: interactive variant
+
+  - name: active
+    description: Card is being pressed (interactive variant only)
+    trigger: ":active"
+    applies-to: interactive variant
+
+# Props/Attributes
+props:
+  - name: variant
+    type: enum
+    description: Visual style variant
+    default: default
+    options:
+      - default
+      - interactive
+      - outlined
+      - elevated
+
+  - name: padding
+    type: enum
+    description: Internal padding size
+    default: medium
+    options:
+      - small
+      - medium
+      - large
+      - none
+
+  - name: interactive
+    type: boolean
+    description: Whether card responds to interaction (hover, click)
+    default: false
+
+  - name: onClick
+    type: function
+    description: Callback when card is clicked
+    required: false
+    notes: Setting this automatically makes card interactive
+
+  - name: href
+    type: string
+    description: URL to navigate to when card is clicked
+    required: false
+    notes: Card becomes a link when href is provided
+
+  - name: elevation
+    type: enum
+    description: Shadow elevation level
+    default: medium
+    options:
+      - none
+      - low
+      - medium
+      - high
+
+  - name: role
+    type: string
+    description: ARIA role for semantic meaning
+    required: false
+    options:
+      - article
+      - region
+      - group
+    notes: Optional, use when card has semantic meaning
+
+  - name: ariaLabel
+    type: string
+    description: Accessible label for the card
+    required: false
+    notes: Recommended when card is interactive or has role
+
+# Slots/Composition
+# Card supports slotted content areas
+slots:
+  - name: header
+    description: Top section for title, actions, or metadata
+    required: false
+    typical-content:
+      - Card title/heading
+      - Action buttons or menu
+      - Timestamp or metadata
+
+  - name: media
+    description: Media content like images or video
+    required: false
+    typical-content:
+      - Image
+      - Video
+      - Icon
+      - Illustration
+    notes: Usually full-width, positioned after header
+
+  - name: content
+    description: Main content area
+    required: true
+    typical-content:
+      - Text content
+      - Lists
+      - Form fields
+      - Any card body content
+
+  - name: footer
+    description: Bottom section for actions or metadata
+    required: false
+    typical-content:
+      - Action buttons
+      - Links
+      - Metadata
+      - Tags
+
+# Accessibility requirements
+accessibility:
+  semantics:
+    - Use semantic HTML within card slots
+    - Consider role="article" for self-contained content
+    - Consider role="region" with aria-label for landmark sections
+
+  keyboard:
+    - key: Tab
+      action: Navigate to/from interactive card
+      applies-to: interactive cards only
+    - key: Enter
+      action: Activate interactive card
+      applies-to: interactive cards only
+    - key: Space
+      action: Activate interactive card
+      applies-to: interactive cards only
+
+  aria:
+    - attribute: role
+      required: false
+      description: Semantic role when appropriate (article, region, group)
+
+    - attribute: aria-label
+      required: when role is region
+      description: Provides accessible name for the card
+
+    - attribute: tabindex
+      required: when interactive without link/button
+      description: Makes card keyboard accessible (tabindex="0")
+
+  focus:
+    required: for interactive cards
+    visible: true
+    description: Interactive cards must have clear focus indicator
+
+  interactive-cards:
+    - Interactive cards should be keyboard accessible
+    - Use proper button or link semantics when possible
+    - Ensure adequate click/touch target size
+    - Announce state changes to screen readers
+
+# Visual styling map (references design tokens)
+styling:
+  variants:
+    default:
+      background: "colors.assignments.card.background"
+      border-color: "colors.assignments.card.border"
+      shadow: "effects.components.card.variants.default.shadow"
+
+    interactive:
+      background: "colors.assignments.card.background"
+      background-hover: "colors.assignments.card.background-hover"
+      border-color: "colors.assignments.card.border"
+      border-color-hover: "colors.assignments.card.border-hover"
+      shadow: "effects.components.card.variants.interactive.shadow"
+      shadow-hover: "effects.components.card.variants.interactive.shadow-hover"
+      cursor: pointer
+
+    outlined:
+      background: "colors.assignments.card.background"
+      border-color: "colors.assignments.card.border"
+      shadow: "effects.components.card.variants.outlined.shadow"
+
+    elevated:
+      background: "colors.assignments.card.background"
+      border-color: "transparent"
+      shadow: "effects.components.card.variants.elevated.shadow"
+      shadow-hover: "effects.components.card.variants.elevated.shadow-hover"
+
+  padding:
+    small: "spacing.components.card.padding.small"
+    medium: "spacing.components.card.padding.medium"
+    large: "spacing.components.card.padding.large"
+    none: 0
+
+  common:
+    border-radius: "effects.components.card.border-radius"
+    border-width: "effects.components.card.border-width"
+    transition-duration: "effects.components.card.transition-duration"
+    transition-timing: "effects.components.card.transition-timing"
+    overflow: hidden
+
+  text:
+    color: "colors.assignments.card.text"
+    color-muted: "colors.assignments.card.text-muted"
+
+  slots:
+    gap: "spacing.components.card.gap"
+    header-padding-bottom: "spacing.components.card.header-padding-bottom"
+    footer-padding-top: "spacing.components.card.footer-padding-top"
+    media-margin-x: Negative value of card padding (for full-width)
+    media-margin-top: Negative value of card padding when first child
+
+# Composition structure
+composition:
+  - card-container
+    - header-slot (optional)
+      - Typically: title, actions, metadata
+    - media-slot (optional)
+      - Typically: full-width image or media
+    - content-slot (required)
+      - Main card content
+    - footer-slot (optional)
+      - Typically: actions, links, metadata
+
+# Behavior specifications
+behavior:
+  - Interactive cards show hover state and change cursor to pointer
+  - Cards with onClick handler are keyboard accessible with Enter/Space
+  - Cards with href render as anchor element or contain anchor
+  - Media slot images should be full-width by default
+  - Card maintains aspect ratio based on content
+  - Padding can be removed for specific slots (e.g., media)
+
+# Usage guidelines
+guidelines:
+  do:
+    - Use cards to group related content
+    - Keep card content focused and scannable
+    - Use interactive variant when entire card is clickable
+    - Provide clear visual hierarchy within card
+    - Use consistent card sizes in lists or grids
+    - Add appropriate ARIA labels for interactive cards
+
+  dont:
+    - Nest interactive cards (avoid cards within cards)
+    - Make cards too wide (max ~600px for readability)
+    - Overload cards with too much content
+    - Use interactive variant without actual interaction
+    - Forget focus states for interactive cards
+
+# Layout considerations
+layout:
+  - Cards work well in grid layouts
+  - Maintain consistent heights in rows when possible
+  - Use consistent spacing between cards (16-24px)
+  - Consider responsive behavior for mobile
+  - Full-width on mobile, grid on desktop is common pattern
+
+# Examples of common use cases
+examples:
+  - name: Basic Card
+    props:
+      variant: default
+      padding: medium
+    slots:
+      content: "Simple card with text content"
+
+  - name: Card with Header and Footer
+    props:
+      variant: default
+      padding: medium
+    slots:
+      header: "Card Title"
+      content: "Main card content goes here"
+      footer: "Footer actions or metadata"
+
+  - name: Interactive Card
+    props:
+      variant: interactive
+      onClick: handleClick
+      ariaLabel: "Open product details"
+    slots:
+      media: "<img src='product.jpg' alt='Product' />"
+      content: "Product description"
+      footer: "View Details →"
+
+  - name: Article Card
+    props:
+      variant: elevated
+      role: article
+    slots:
+      media: "<img src='article.jpg' alt='Article cover' />"
+      header: "<h3>Article Title</h3>"
+      content: "Article excerpt..."
+      footer: "Read more"
+
+  - name: Link Card
+    props:
+      variant: interactive
+      href: "/product/123"
+      ariaLabel: "View product details"
+    slots:
+      media: "<img src='product.jpg' />"
+      content: "Product name and description"
+

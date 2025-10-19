@@ -1,0 +1,160 @@
+# Typography Tokens
+# Design system font families, sizes, weights, and line heights
+
+metadata:
+  name: Typography
+  description: Typography scale and text styling
+  version: 1.0.0
+
+# Font families
+families:
+  sans:
+    - "Inter"
+    - "-apple-system"
+    - "BlinkMacSystemFont"
+    - "Segoe UI"
+    - "Roboto"
+    - "Helvetica Neue"
+    - "Arial"
+    - "sans-serif"
+
+  mono:
+    - "SF Mono"
+    - "Monaco"
+    - "Cascadia Code"
+    - "Roboto Mono"
+    - "Courier New"
+    - "monospace"
+
+# Font sizes (in pixels)
+sizes:
+  xs: 12
+  sm: 14
+  base: 16
+  lg: 18
+  xl: 20
+  "2xl": 24
+  "3xl": 30
+  "4xl": 36
+  "5xl": 48
+  "6xl": 60
+
+# Font weights
+weights:
+  light: 300
+  normal: 400
+  medium: 500
+  semibold: 600
+  bold: 700
+  extrabold: 800
+
+# Line heights
+line-heights:
+  tight: 1.25
+  normal: 1.5
+  relaxed: 1.75
+  loose: 2
+
+# Letter spacing
+letter-spacing:
+  tight: "-0.025em"
+  normal: "0"
+  wide: "0.025em"
+  wider: "0.05em"
+
+# Component typography assignments
+components:
+  button:
+    small:
+      font-size: "sizes.sm"
+      font-weight: "weights.medium"
+      line-height: "line-heights.tight"
+      letter-spacing: "letter-spacing.normal"
+
+    medium:
+      font-size: "sizes.base"
+      font-weight: "weights.medium"
+      line-height: "line-heights.tight"
+      letter-spacing: "letter-spacing.normal"
+
+    large:
+      font-size: "sizes.lg"
+      font-weight: "weights.medium"
+      line-height: "line-heights.tight"
+      letter-spacing: "letter-spacing.normal"
+
+  link:
+    small:
+      font-size: "sizes.sm"
+      font-weight: "weights.normal"
+      line-height: "line-heights.normal"
+      text-decoration: "underline"
+
+    medium:
+      font-size: "sizes.base"
+      font-weight: "weights.normal"
+      line-height: "line-heights.normal"
+      text-decoration: "underline"
+
+    large:
+      font-size: "sizes.lg"
+      font-weight: "weights.normal"
+      line-height: "line-heights.normal"
+      text-decoration: "underline"
+
+    nav:
+      font-weight: "weights.medium"
+      text-decoration: "none"
+
+  input:
+    label:
+      font-size: "sizes.sm"
+      font-weight: "weights.medium"
+      line-height: "line-heights.normal"
+
+    field:
+      small:
+        font-size: "sizes.sm"
+        line-height: "line-heights.tight"
+
+      medium:
+        font-size: "sizes.base"
+        line-height: "line-heights.tight"
+
+      large:
+        font-size: "sizes.lg"
+        line-height: "line-heights.tight"
+
+    help-text:
+      font-size: "sizes.sm"
+      line-height: "line-heights.normal"
+
+    error-text:
+      font-size: "sizes.sm"
+      font-weight: "weights.medium"
+      line-height: "line-heights.normal"
+
+  card:
+    title:
+      font-size: "sizes.xl"
+      font-weight: "weights.semibold"
+      line-height: "line-heights.tight"
+
+    body:
+      font-size: "sizes.base"
+      line-height: "line-heights.relaxed"
+
+    caption:
+      font-size: "sizes.sm"
+      line-height: "line-heights.normal"
+
+  dialog:
+    title:
+      font-size: "sizes.xl"
+      font-weight: "weights.semibold"
+      line-height: "line-heights.tight"
+
+    body:
+      font-size: "sizes.base"
+      line-height: "line-heights.relaxed"
+

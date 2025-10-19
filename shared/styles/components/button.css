@@ -1,0 +1,243 @@
+/**
+ * Button Component Styles
+ *
+ * YAML Specification: /yaml/components/button.yaml
+ *
+ * This is the single source of truth for Button styling.
+ * Used by both React and Web Components implementations.
+ *
+ * Class Naming Convention: BEM (Block Element Modifier)
+ * - Block: .ds-button
+ * - Element: .ds-button__icon, .ds-button__label
+ * - Modifier: .ds-button--primary, .ds-button--small
+ */
+
+/* Base Button */
+.ds-button {
+  /* Reset default button styles */
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+
+  /* Common button styles */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-base);
+  border-width: 1px;
+  border-style: solid;
+  transition-property: all;
+  transition-duration: var(--transition-base);
+  transition-timing-function: ease-in-out;
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  position: relative;
+  user-select: none;
+}
+
+.ds-button:disabled {
+  cursor: not-allowed;
+}
+
+/* ==================== VARIANTS ==================== */
+
+/* Primary Variant */
+.ds-button--primary {
+  background-color: var(--color-brand-primary-600);
+  color: var(--color-neutral-white);
+  border-color: var(--color-brand-primary-600);
+  box-shadow: var(--shadow-sm);
+}
+
+.ds-button--primary:hover:not(:disabled) {
+  background-color: var(--color-brand-primary-700);
+  box-shadow: var(--shadow-md);
+}
+
+.ds-button--primary:active:not(:disabled) {
+  background-color: var(--color-brand-primary-800);
+}
+
+.ds-button--primary:disabled {
+  background-color: var(--color-neutral-300);
+  color: var(--color-neutral-500);
+  border-color: var(--color-neutral-300);
+  box-shadow: none;
+}
+
+/* Secondary Variant */
+.ds-button--secondary {
+  background-color: var(--color-neutral-white);
+  color: var(--color-brand-primary-600);
+  border-color: var(--color-brand-primary-600);
+}
+
+.ds-button--secondary:hover:not(:disabled) {
+  background-color: var(--color-neutral-50);
+  border-color: var(--color-brand-primary-700);
+}
+
+.ds-button--secondary:active:not(:disabled) {
+  background-color: var(--color-neutral-100);
+}
+
+.ds-button--secondary:disabled {
+  background-color: var(--color-neutral-100);
+  color: var(--color-neutral-400);
+  border-color: var(--color-neutral-300);
+}
+
+/* Tertiary Variant */
+.ds-button--tertiary {
+  background-color: transparent;
+  color: var(--color-brand-primary-600);
+  border-color: transparent;
+}
+
+.ds-button--tertiary:hover:not(:disabled) {
+  background-color: var(--color-neutral-100);
+  color: var(--color-brand-primary-700);
+}
+
+.ds-button--tertiary:active:not(:disabled) {
+  background-color: var(--color-neutral-200);
+}
+
+.ds-button--tertiary:disabled {
+  color: var(--color-neutral-400);
+}
+
+/* As-Link Variant */
+.ds-button--as-link {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--color-brand-primary-600);
+  text-decoration: underline;
+  padding: 0;
+}
+
+.ds-button--as-link:hover:not(:disabled) {
+  color: var(--color-brand-primary-700);
+}
+
+.ds-button--as-link:disabled {
+  color: var(--color-neutral-400);
+}
+
+/* Icon-Only Variant */
+.ds-button--icon-only {
+  padding: 0;
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+}
+
+/* ==================== SIZES ==================== */
+
+/* Small Size */
+.ds-button--small {
+  padding: 6px 12px;
+  gap: 4px;
+  min-height: 32px;
+  font-size: var(--font-size-sm);
+}
+
+.ds-button--small.ds-button--icon-only {
+  width: 32px;
+  height: 32px;
+}
+
+.ds-button--small .ds-button__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Medium Size */
+.ds-button--medium {
+  padding: 8px 16px;
+  gap: 8px;
+  min-height: 40px;
+  font-size: var(--font-size-base);
+}
+
+.ds-button--medium.ds-button--icon-only {
+  width: 40px;
+  height: 40px;
+}
+
+.ds-button--medium .ds-button__icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Large Size */
+.ds-button--large {
+  padding: 12px 24px;
+  gap: 8px;
+  min-height: 48px;
+  font-size: var(--font-size-lg);
+}
+
+.ds-button--large.ds-button--icon-only {
+  width: 48px;
+  height: 48px;
+}
+
+.ds-button--large .ds-button__icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* ==================== ELEMENTS ==================== */
+
+.ds-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ds-button__label {
+  display: inline-block;
+}
+
+.ds-button__spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: ds-button-spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+.ds-button--icon-only .ds-button__spinner {
+  margin-right: 0;
+}
+
+@keyframes ds-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==================== STATES ==================== */
+
+/* Loading State */
+.ds-button--loading {
+  position: relative;
+}
+
+.ds-button--loading .ds-button__label,
+.ds-button--loading .ds-button__icon {
+  opacity: 0.6;
+}
+
+/* Focus State */
+.ds-button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+

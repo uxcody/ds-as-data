@@ -1,0 +1,118 @@
+/**
+ * Demo Page Styles
+ */
+
+.demo {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-8);
+}
+
+.demo-section {
+  margin-bottom: var(--spacing-16);
+}
+
+.demo-section__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900);
+  margin-bottom: var(--spacing-2);
+}
+
+.demo-section__description {
+  color: var(--color-neutral-600);
+  margin-bottom: var(--spacing-8);
+}
+
+.demo-section__description code {
+  background-color: var(--color-neutral-100);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: var(--color-brand-primary-700);
+}
+
+.demo-group {
+  background-color: var(--color-neutral-white);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  margin-bottom: var(--spacing-6);
+}
+
+.demo-group h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-800);
+  margin-bottom: var(--spacing-4);
+  padding-bottom: var(--spacing-3);
+  border-bottom: 1px solid var(--color-neutral-100);
+}
+
+.demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  align-items: center;
+}
+
+.demo-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-6);
+}
+
+/* Specific styling for inline link demo */
+.demo-row p {
+  margin: 0;
+  color: var(--color-neutral-700);
+}
+
+/* Card content in demo */
+.demo-grid .ds-card h3 {
+  margin: 0 0 var(--spacing-2) 0;
+  font-size: var(--font-size-lg);
+}
+
+.demo-grid .ds-card p {
+  margin: 0;
+  color: var(--color-neutral-600);
+}
+
+.demo-grid .ds-card ul {
+  margin: var(--spacing-4) 0 0 0;
+  padding-left: var(--spacing-6);
+}
+
+.demo-grid .ds-card li {
+  margin-bottom: var(--spacing-2);
+  color: var(--color-neutral-600);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .demo {
+    padding: var(--spacing-4);
+  }
+
+  .demo-section {
+    margin-bottom: var(--spacing-10);
+  }
+
+  .demo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+

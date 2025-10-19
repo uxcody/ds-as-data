@@ -1,0 +1,470 @@
+# Dialog Component
+# Modal overlay for focused interactions
+
+metadata:
+  name: Dialog
+  description: A modal dialog that overlays the page to capture user attention and interaction
+  category: Overlay
+  version: 1.0.0
+  complexity: advanced
+
+# Available variants
+variants:
+  - name: modal
+    description: Standard modal dialog for general purposes
+    default: true
+
+  - name: alert
+    description: Alert dialog requiring user acknowledgment
+
+  - name: confirmation
+    description: Dialog requesting user confirmation for an action
+
+# Available sizes
+sizes:
+  - name: small
+    description: Compact dialog for simple messages (400px)
+
+  - name: medium
+    description: Standard dialog size (600px)
+    default: true
+
+  - name: large
+    description: Large dialog for complex content (800px)
+
+  - name: fullscreen
+    description: Dialog that fills entire viewport
+
+# Component states
+states:
+  - name: closed
+    description: Dialog is not visible
+    default: true
+
+  - name: opening
+    description: Dialog is animating into view
+    trigger: "open prop changes to true"
+
+  - name: open
+    description: Dialog is fully visible and interactive
+    trigger: "open prop is true"
+
+  - name: closing
+    description: Dialog is animating out of view
+    trigger: "onClose callback fired"
+
+# Props/Attributes
+props:
+  - name: open
+    type: boolean
+    description: Whether the dialog is visible
+    required: true
+    default: false
+
+  - name: onClose
+    type: function
+    description: Callback when dialog should close
+    required: true
+    notes: Called on overlay click, Escape key, or close button
+
+  - name: title
+    type: string
+    description: Dialog title text
+    required: false
+    notes: Highly recommended for accessibility
+
+  - name: size
+    type: enum
+    description: Dialog size variant
+    default: medium
+    options:
+      - small
+      - medium
+      - large
+      - fullscreen
+
+  - name: variant
+    type: enum
+    description: Dialog behavior variant
+    default: modal
+    options:
+      - modal
+      - alert
+      - confirmation
+
+  - name: closeOnOverlayClick
+    type: boolean
+    description: Whether clicking overlay closes dialog
+    default: true
+    notes: Should be false for alert dialogs
+
+  - name: closeOnEscape
+    type: boolean
+    description: Whether Escape key closes dialog
+    default: true
+    notes: Should be false for alert dialogs requiring action
+
+  - name: showCloseButton
+    type: boolean
+    description: Whether to show close button in header
+    default: true
+    notes: Should be false for alert/confirmation requiring explicit action
+
+  - name: preventScroll
+    type: boolean
+    description: Whether to prevent body scroll when open
+    default: true
+
+  - name: initialFocus
+    type: string | element
+    description: Element to focus when dialog opens
+    required: false
+    notes: CSS selector or element reference
+
+  - name: returnFocus
+    type: boolean
+    description: Whether to return focus to trigger element on close
+    default: true
+
+  - name: ariaLabel
+    type: string
+    description: Accessible label for dialog
+    required: false
+    notes: Required if no title provided
+
+  - name: ariaDescribedBy
+    type: string
+    description: ID of element describing dialog purpose
+    required: false
+
+# Slots/Composition
+slots:
+  - name: header
+    description: Dialog header section
+    required: false
+    typical-content:
+      - Title text
+      - Close button
+      - Optional icon or metadata
+
+  - name: content
+    description: Main dialog content
+    required: true
+    typical-content:
+      - Text content
+      - Forms
+      - Images
+      - Any dialog body content
+
+  - name: footer
+    description: Dialog footer for actions
+    required: false
+    typical-content:
+      - Action buttons (confirm, cancel, etc.)
+      - Links
+      - Secondary actions
+
+  - name: closeButton
+    description: Close button (typically in header)
+    required: false
+    default-rendering: X icon button in top-right
+
+# Accessibility requirements
+accessibility:
+  role: dialog
+
+  aria:
+    - attribute: role
+      required: true
+      value: dialog
+      description: Identifies element as dialog
+
+    - attribute: aria-modal
+      required: true
+      value: "true"
+      description: Indicates dialog is modal
+
+    - attribute: aria-labelledby
+      required: when title is present
+      description: References title element for accessible name
+
+    - attribute: aria-label
+      required: when no title present
+      description: Provides accessible name for dialog
+
+    - attribute: aria-describedby
+      required: false
+      description: References element describing dialog purpose
+
+  keyboard:
+    - key: Escape
+      action: Close dialog (unless closeOnEscape=false)
+      required: true
+
+    - key: Tab
+      action: Navigate forward through focusable elements
+      required: true
+      notes: Focus must stay trapped within dialog
+
+    - key: Shift + Tab
+      action: Navigate backward through focusable elements
+      required: true
+      notes: Focus must stay trapped within dialog
+
+  focus-management:
+    required: true
+    requirements:
+      - Focus must move into dialog when opened
+      - Focus must be trapped within dialog (no tabbing to background)
+      - Focus must return to trigger element when closed (unless specified otherwise)
+      - First focusable element should receive focus (or initialFocus element)
+      - If no focusable elements, focus the dialog container
+
+  screen-reader:
+    - Dialog opening should be announced
+    - Dialog title/label must be announced
+    - Dialog role must be conveyed
+    - Background content must be hidden (aria-hidden) or inert
+
+  inert-background:
+    required: true
+    description: Background content must not be interactive while dialog is open
+    implementation:
+      - Use aria-hidden="true" on background content
+      - Or use inert attribute on background content
+      - Prevent keyboard navigation to background
+      - Prevent screen reader access to background
+
+# Visual styling map (references design tokens)
+styling:
+  overlay:
+    background: "colors.assignments.dialog.overlay"
+    transition-duration: "effects.components.dialog.overlay.transition-duration"
+    transition-timing: "effects.components.dialog.overlay.transition-timing"
+    transition-property: "effects.components.dialog.overlay.transition-property"
+    z-index: 1000
+
+  dialog:
+    background: "colors.assignments.dialog.background"
+    border-color: "colors.assignments.dialog.border"
+    border-radius: "effects.components.dialog.border-radius"
+    shadow: "effects.components.dialog.shadow"
+    padding: "spacing.components.dialog.padding"
+    z-index: 1001
+
+    transition-duration: "effects.components.dialog.content.transition-duration"
+    transition-timing: "effects.components.dialog.content.transition-timing"
+    transition-property: "effects.components.dialog.content.transition-property"
+
+  text:
+    color: "colors.assignments.dialog.text"
+    color-muted: "colors.assignments.dialog.text-muted"
+
+  title:
+    font-size: "typography.components.dialog.title.font-size"
+    font-weight: "typography.components.dialog.title.font-weight"
+    line-height: "typography.components.dialog.title.line-height"
+
+  body:
+    font-size: "typography.components.dialog.body.font-size"
+    line-height: "typography.components.dialog.body.line-height"
+
+  sizes:
+    small:
+      width: "spacing.components.dialog.sizes.small.width"
+      max-width: "spacing.components.dialog.sizes.small.max-width"
+
+    medium:
+      width: "spacing.components.dialog.sizes.medium.width"
+      max-width: "spacing.components.dialog.sizes.medium.max-width"
+
+    large:
+      width: "spacing.components.dialog.sizes.large.width"
+      max-width: "spacing.components.dialog.sizes.large.max-width"
+
+    fullscreen:
+      width: "spacing.components.dialog.sizes.fullscreen.width"
+      height: "spacing.components.dialog.sizes.fullscreen.height"
+      border-radius: 0
+
+  slots:
+    gap: "spacing.components.dialog.gap"
+    header-padding-bottom: "spacing.components.dialog.header-padding-bottom"
+    footer-padding-top: "spacing.components.dialog.footer-padding-top"
+
+# Animation specifications
+animations:
+  overlay:
+    open:
+      from:
+        opacity: 0
+      to:
+        opacity: 1
+      duration: "effects.components.dialog.overlay.transition-duration"
+      timing: "effects.components.dialog.overlay.transition-timing"
+
+    close:
+      from:
+        opacity: 1
+      to:
+        opacity: 0
+      duration: "effects.components.dialog.overlay.transition-duration"
+      timing: "effects.components.dialog.overlay.transition-timing"
+
+  dialog:
+    open:
+      from:
+        opacity: 0
+        transform: "scale(0.95) translateY(-20px)"
+      to:
+        opacity: 1
+        transform: "scale(1) translateY(0)"
+      duration: "effects.components.dialog.content.transition-duration"
+      timing: "effects.components.dialog.content.transition-timing"
+
+    close:
+      from:
+        opacity: 1
+        transform: "scale(1) translateY(0)"
+      to:
+        opacity: 0
+        transform: "scale(0.95) translateY(-20px)"
+      duration: "effects.components.dialog.content.transition-duration"
+      timing: "effects.components.dialog.content.transition-timing"
+
+# Composition structure
+composition:
+  - portal-root
+    - overlay (backdrop)
+    - dialog-container (centered)
+      - dialog-content
+        - header-slot (optional)
+          - title
+          - close-button (optional)
+        - content-slot (required)
+          - Main dialog content
+        - footer-slot (optional)
+          - Action buttons
+
+# Behavior specifications
+behavior:
+  - Dialog renders in portal at end of document body
+  - Opening dialog traps focus within dialog
+  - Tabbing cycles through focusable elements within dialog
+  - Escape key closes dialog (unless disabled)
+  - Overlay click closes dialog (unless disabled)
+  - Background scroll is prevented when dialog is open
+  - Background content is marked inert/aria-hidden
+  - Focus returns to trigger element on close
+  - Dialog content animates in/out on open/close
+  - Alert variant prevents closing without explicit action
+  - Confirmation variant typically has cancel and confirm buttons
+
+# Focus trap implementation
+focus-trap:
+  requirements:
+    - Find all focusable elements within dialog
+    - Track first and last focusable elements
+    - On Tab from last element, focus first element
+    - On Shift+Tab from first element, focus last element
+    - Update focusable elements if dialog content changes
+
+  focusable-selectors:
+    - a[href]
+    - button:not([disabled])
+    - textarea:not([disabled])
+    - input:not([disabled])
+    - select:not([disabled])
+    - "[tabindex]:not([tabindex='-1'])"
+
+# Usage guidelines
+guidelines:
+  do:
+    - Use dialogs for focused tasks requiring user attention
+    - Provide clear title describing dialog purpose
+    - Include obvious way to close dialog
+    - Keep dialog content focused and concise
+    - Use appropriate size for content
+    - Implement proper focus management
+    - Return focus to trigger element on close
+    - Use alert variant for important warnings
+    - Use confirmation variant for destructive actions
+
+  dont:
+    - Overuse dialogs (they interrupt user flow)
+    - Nest dialogs within dialogs
+    - Make dialogs too large or content-heavy
+    - Remove close button from general modals
+    - Allow background interaction while modal is open
+    - Forget to handle Escape key
+    - Auto-open dialogs without user action
+
+# Variant-specific behavior
+variant-behavior:
+  modal:
+    closeOnOverlayClick: true
+    closeOnEscape: true
+    showCloseButton: true
+    description: Standard dialog allowing easy dismissal
+
+  alert:
+    closeOnOverlayClick: false
+    closeOnEscape: false
+    showCloseButton: false
+    role: alertdialog
+    description: Important message requiring acknowledgment
+    notes: Must have explicit OK/Acknowledge button
+
+  confirmation:
+    closeOnOverlayClick: false
+    closeOnEscape: true
+    showCloseButton: false
+    description: Confirmation of user action
+    notes: Should have explicit Cancel and Confirm buttons
+
+# Examples of common use cases
+examples:
+  - name: Basic Modal
+    props:
+      open: true
+      onClose: handleClose
+      title: "Edit Profile"
+      size: medium
+    slots:
+      content: "Form fields for editing profile"
+      footer: "Save and Cancel buttons"
+
+  - name: Alert Dialog
+    props:
+      open: true
+      onClose: handleClose
+      variant: alert
+      title: "Warning"
+      size: small
+      closeOnOverlayClick: false
+      closeOnEscape: false
+      showCloseButton: false
+    slots:
+      content: "Your session is about to expire"
+      footer: "<Button onClick={handleClose}>OK</Button>"
+
+  - name: Confirmation Dialog
+    props:
+      open: true
+      onClose: handleClose
+      variant: confirmation
+      title: "Delete Item"
+      size: small
+    slots:
+      content: "Are you sure you want to delete this item? This action cannot be undone."
+      footer: "<Button variant='secondary' onClick={handleClose}>Cancel</Button> <Button variant='primary' onClick={handleDelete}>Delete</Button>"
+
+  - name: Fullscreen Dialog
+    props:
+      open: true
+      onClose: handleClose
+      size: fullscreen
+      title: "Image Gallery"
+    slots:
+      content: "Full-screen image viewer"
+

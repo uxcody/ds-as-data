@@ -1,0 +1,188 @@
+# Color Tokens
+# Design system color palette and semantic color assignments
+
+metadata:
+  name: Colors
+  description: Color palette including brand colors and semantic colors
+  version: 1.0.0
+
+colors:
+  # Brand Colors
+  brand:
+    primary:
+      50: "#f0f7ff"
+      100: "#e0efff"
+      200: "#b8dfff"
+      300: "#7cc4ff"
+      400: "#36a9ff"
+      500: "#0891f7"
+      600: "#0074d4"
+      700: "#005bab"
+      800: "#004d8d"
+      900: "#003f74"
+
+    secondary:
+      50: "#faf5ff"
+      100: "#f3e8ff"
+      200: "#e9d5ff"
+      300: "#d8b4fe"
+      400: "#c084fc"
+      500: "#a855f7"
+      600: "#9333ea"
+      700: "#7e22ce"
+      800: "#6b21a8"
+      900: "#581c87"
+
+  # Neutral Colors
+  neutral:
+    white: "#ffffff"
+    black: "#000000"
+    50: "#fafafa"
+    100: "#f5f5f5"
+    200: "#e5e5e5"
+    300: "#d4d4d4"
+    400: "#a3a3a3"
+    500: "#737373"
+    600: "#525252"
+    700: "#404040"
+    800: "#262626"
+    900: "#171717"
+
+  # Semantic Colors
+  semantic:
+    success:
+      50: "#f0fdf4"
+      100: "#dcfce7"
+      200: "#bbf7d0"
+      300: "#86efac"
+      400: "#4ade80"
+      500: "#22c55e"
+      600: "#16a34a"
+      700: "#15803d"
+      800: "#166534"
+      900: "#14532d"
+
+    warning:
+      50: "#fffbeb"
+      100: "#fef3c7"
+      200: "#fde68a"
+      300: "#fcd34d"
+      400: "#fbbf24"
+      500: "#f59e0b"
+      600: "#d97706"
+      700: "#b45309"
+      800: "#92400e"
+      900: "#78350f"
+
+    error:
+      50: "#fef2f2"
+      100: "#fee2e2"
+      200: "#fecaca"
+      300: "#fca5a5"
+      400: "#f87171"
+      500: "#ef4444"
+      600: "#dc2626"
+      700: "#b91c1c"
+      800: "#991b1b"
+      900: "#7f1d1d"
+
+    info:
+      50: "#eff6ff"
+      100: "#dbeafe"
+      200: "#bfdbfe"
+      300: "#93c5fd"
+      400: "#60a5fa"
+      500: "#3b82f6"
+      600: "#2563eb"
+      700: "#1d4ed8"
+      800: "#1e40af"
+      900: "#1e3a8a"
+
+# Component Color Assignments
+# Maps semantic purposes to actual colors
+assignments:
+  button:
+    primary:
+      background: "brand.primary.600"
+      background-hover: "brand.primary.700"
+      background-active: "brand.primary.800"
+      background-disabled: "neutral.300"
+      text: "neutral.white"
+      text-disabled: "neutral.500"
+      border: "brand.primary.600"
+      border-focus: "brand.primary.700"
+
+    secondary:
+      background: "neutral.white"
+      background-hover: "neutral.50"
+      background-active: "neutral.100"
+      background-disabled: "neutral.100"
+      text: "brand.primary.600"
+      text-disabled: "neutral.400"
+      border: "brand.primary.600"
+      border-hover: "brand.primary.700"
+      border-focus: "brand.primary.700"
+      border-disabled: "neutral.300"
+
+    tertiary:
+      background: "transparent"
+      background-hover: "neutral.100"
+      background-active: "neutral.200"
+      text: "brand.primary.600"
+      text-hover: "brand.primary.700"
+      text-disabled: "neutral.400"
+
+    as-link:
+      text: "brand.primary.600"
+      text-hover: "brand.primary.700"
+      text-visited: "brand.secondary.700"
+      text-disabled: "neutral.400"
+
+  link:
+    inline:
+      text: "brand.primary.600"
+      text-hover: "brand.primary.700"
+      text-visited: "brand.secondary.700"
+      underline: "brand.primary.600"
+
+    standalone:
+      text: "brand.primary.600"
+      text-hover: "brand.primary.700"
+      text-visited: "brand.secondary.700"
+
+    nav:
+      text: "neutral.700"
+      text-hover: "brand.primary.600"
+      text-active: "brand.primary.700"
+
+  input:
+    background: "neutral.white"
+    background-disabled: "neutral.100"
+    background-readonly: "neutral.50"
+    text: "neutral.900"
+    text-placeholder: "neutral.400"
+    text-disabled: "neutral.500"
+    border: "neutral.300"
+    border-hover: "neutral.400"
+    border-focus: "brand.primary.600"
+    border-error: "semantic.error.500"
+    border-disabled: "neutral.200"
+    label: "neutral.700"
+    help-text: "neutral.600"
+    error-text: "semantic.error.600"
+
+  card:
+    background: "neutral.white"
+    background-hover: "neutral.50"
+    border: "neutral.200"
+    border-hover: "neutral.300"
+    text: "neutral.900"
+    text-muted: "neutral.600"
+
+  dialog:
+    background: "neutral.white"
+    overlay: "rgba(0, 0, 0, 0.5)"
+    text: "neutral.900"
+    text-muted: "neutral.600"
+    border: "neutral.200"
+

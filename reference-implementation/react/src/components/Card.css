@@ -1,0 +1,202 @@
+/**
+ * Card Styles
+ * Based on YAML specification: /yaml/components/card.yaml
+ */
+
+.ds-card {
+  /* Reset default styles */
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+
+  /* Common card styles */
+  background-color: var(--color-neutral-white);
+  border-radius: var(--radius-lg);
+  border: 1px solid;
+  overflow: hidden;
+  transition-duration: var(--transition-base);
+  transition-timing-function: ease-in-out;
+  transition-property: box-shadow, border-color, background-color;
+}
+
+/* Variants - Default */
+.ds-card--default {
+  border-color: var(--color-neutral-200);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Variants - Interactive */
+.ds-card--interactive {
+  border-color: var(--color-neutral-200);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+.ds-card--interactive:hover {
+  background-color: var(--color-neutral-50);
+  border-color: var(--color-neutral-300);
+  box-shadow: var(--shadow-md);
+}
+
+.ds-card--interactive:active {
+  box-shadow: var(--shadow-sm);
+}
+
+/* Variants - Outlined */
+.ds-card--outlined {
+  border-color: var(--color-neutral-200);
+  box-shadow: var(--shadow-none);
+}
+
+/* Variants - Elevated */
+.ds-card--elevated {
+  border-color: transparent;
+  box-shadow: var(--shadow-lg);
+}
+
+.ds-card--elevated:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+/* Padding variants */
+.ds-card--padding-none {
+  padding: 0;
+}
+
+.ds-card--padding-small {
+  padding: var(--spacing-4);
+}
+
+.ds-card--padding-medium {
+  padding: var(--spacing-6);
+}
+
+.ds-card--padding-large {
+  padding: var(--spacing-8);
+}
+
+/* Special handling for media with padding */
+.ds-card--padding-small .ds-card__media,
+.ds-card--padding-medium .ds-card__media,
+.ds-card--padding-large .ds-card__media {
+  margin-left: calc(var(--spacing-6) * -1);
+  margin-right: calc(var(--spacing-6) * -1);
+  width: calc(100% + var(--spacing-6) * 2);
+}
+
+.ds-card--padding-small .ds-card__media {
+  margin-left: calc(var(--spacing-4) * -1);
+  margin-right: calc(var(--spacing-4) * -1);
+  width: calc(100% + var(--spacing-4) * 2);
+}
+
+.ds-card--padding-large .ds-card__media {
+  margin-left: calc(var(--spacing-8) * -1);
+  margin-right: calc(var(--spacing-8) * -1);
+  width: calc(100% + var(--spacing-8) * 2);
+}
+
+/* Media as first child (full-width from top) */
+.ds-card__header:first-child,
+.ds-card__media:first-child {
+  margin-top: calc(var(--spacing-6) * -1);
+}
+
+.ds-card--padding-small .ds-card__header:first-child,
+.ds-card--padding-small .ds-card__media:first-child {
+  margin-top: calc(var(--spacing-4) * -1);
+}
+
+.ds-card--padding-large .ds-card__header:first-child,
+.ds-card--padding-large .ds-card__media:first-child {
+  margin-top: calc(var(--spacing-8) * -1);
+}
+
+/* Elevation overrides */
+.ds-card--elevation-none {
+  box-shadow: var(--shadow-none);
+}
+
+.ds-card--elevation-low {
+  box-shadow: var(--shadow-sm);
+}
+
+.ds-card--elevation-medium {
+  box-shadow: var(--shadow-md);
+}
+
+.ds-card--elevation-high {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Card slots */
+.ds-card__header {
+  padding-bottom: var(--spacing-4);
+}
+
+.ds-card__media {
+  /* Media content is typically full-width */
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+.ds-card__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ds-card__content {
+  flex: 1;
+  color: var(--color-neutral-900);
+}
+
+.ds-card__footer {
+  padding-top: var(--spacing-4);
+  color: var(--color-neutral-600);
+}
+
+/* Spacing between slots */
+.ds-card__header + .ds-card__media,
+.ds-card__header + .ds-card__content,
+.ds-card__media + .ds-card__content {
+  margin-top: var(--spacing-4);
+}
+
+/* No padding bottom on header if media follows */
+.ds-card__header:has(+ .ds-card__media) {
+  padding-bottom: 0;
+}
+
+/* Focus styles for interactive cards */
+.ds-card--interactive:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Text styles within card */
+.ds-card h1,
+.ds-card h2,
+.ds-card h3,
+.ds-card h4,
+.ds-card h5,
+.ds-card h6 {
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--spacing-2);
+}
+
+.ds-card h3 {
+  font-size: var(--font-size-xl);
+}
+
+.ds-card p {
+  line-height: var(--line-height-relaxed);
+}
+
+.ds-card p:not(:last-child) {
+  margin-bottom: var(--spacing-3);
+}
+

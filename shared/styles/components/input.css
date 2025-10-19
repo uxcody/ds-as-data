@@ -1,0 +1,228 @@
+/**
+ * Input Component Styles
+ *
+ * YAML Specification: /yaml/components/input.yaml
+ *
+ * This is the single source of truth for Input styling.
+ * Used by both React and Web Components implementations.
+ *
+ * Class Naming Convention: BEM (Block Element Modifier)
+ * - Block: .ds-input-container, .ds-input-wrapper, .ds-input
+ * - Element: .ds-input-label, .ds-input__icon, .ds-input-help
+ * - Modifier: .ds-input-wrapper--small, .ds-input-wrapper--error
+ */
+
+/* Container */
+.ds-input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ==================== LABEL ==================== */
+
+.ds-input-label {
+  display: block;
+  color: var(--color-neutral-700);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  margin-bottom: 6px;
+}
+
+.ds-input-label__required {
+  color: var(--color-error-600);
+  margin-left: 4px;
+}
+
+/* ==================== WRAPPER ==================== */
+
+.ds-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-neutral-white);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-base);
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--transition-base);
+  transition-timing-function: ease-in-out;
+  box-shadow: var(--shadow-sm);
+}
+
+.ds-input-wrapper:hover:not(.ds-input-wrapper--disabled) {
+  border-color: var(--color-neutral-400);
+}
+
+.ds-input-wrapper:focus-within:not(.ds-input-wrapper--disabled) {
+  border-color: var(--color-brand-primary-600);
+  box-shadow: var(--shadow-md);
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: 0;
+}
+
+/* ==================== STATES ==================== */
+
+/* Error State */
+.ds-input-wrapper--error {
+  border-color: var(--color-error-500);
+}
+
+.ds-input-wrapper--error:focus-within {
+  border-color: var(--color-error-500);
+  outline-color: rgba(239, 68, 68, 0.5);
+}
+
+/* Disabled State */
+.ds-input-wrapper--disabled {
+  background-color: var(--color-neutral-100);
+  border-color: var(--color-neutral-200);
+  cursor: not-allowed;
+}
+
+/* Readonly State */
+.ds-input-wrapper--readonly {
+  background-color: var(--color-neutral-50);
+}
+
+/* ==================== INPUT ELEMENT ==================== */
+
+.ds-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--color-neutral-900);
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.ds-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.ds-input::placeholder {
+  color: var(--color-neutral-400);
+}
+
+.ds-input:disabled {
+  color: var(--color-neutral-500);
+  cursor: not-allowed;
+}
+
+.ds-input:read-only {
+  cursor: default;
+}
+
+/* ==================== SIZES ==================== */
+
+/* Small Size */
+.ds-input-wrapper--small {
+  height: 32px;
+  padding: 0 12px;
+}
+
+.ds-input--small {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-tight);
+}
+
+.ds-input-wrapper--small .ds-input__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.ds-input-wrapper--small.ds-input-wrapper--icon-left .ds-input {
+  padding-left: 8px;
+}
+
+.ds-input-wrapper--small.ds-input-wrapper--icon-right .ds-input {
+  padding-right: 8px;
+}
+
+/* Medium Size */
+.ds-input-wrapper--medium {
+  height: 40px;
+  padding: 0 16px;
+}
+
+.ds-input--medium {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-tight);
+}
+
+.ds-input-wrapper--medium .ds-input__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.ds-input-wrapper--medium.ds-input-wrapper--icon-left .ds-input {
+  padding-left: 8px;
+}
+
+.ds-input-wrapper--medium.ds-input-wrapper--icon-right .ds-input {
+  padding-right: 8px;
+}
+
+/* Large Size */
+.ds-input-wrapper--large {
+  height: 48px;
+  padding: 0 16px;
+}
+
+.ds-input--large {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-tight);
+}
+
+.ds-input-wrapper--large .ds-input__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.ds-input-wrapper--large.ds-input-wrapper--icon-left .ds-input {
+  padding-left: 8px;
+}
+
+.ds-input-wrapper--large.ds-input-wrapper--icon-right .ds-input {
+  padding-right: 8px;
+}
+
+/* ==================== ICON ==================== */
+
+.ds-input__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-neutral-500);
+}
+
+.ds-input__icon--left {
+  margin-right: -8px;
+}
+
+.ds-input__icon--right {
+  margin-left: -8px;
+}
+
+/* ==================== HELP & ERROR TEXT ==================== */
+
+.ds-input-help {
+  margin-top: 4px;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-neutral-600);
+}
+
+.ds-input-error {
+  margin-top: 4px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  color: var(--color-error-600);
+}
+

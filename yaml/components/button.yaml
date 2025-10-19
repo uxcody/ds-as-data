@@ -1,0 +1,311 @@
+# Button Component
+# Interactive element that triggers actions
+
+metadata:
+  name: Button
+  description: A clickable button element that triggers actions or navigation
+  category: Actions
+  version: 1.0.0
+  complexity: basic
+
+# Available variants
+variants:
+  - name: primary
+    description: Main call-to-action button with high emphasis
+    default: true
+
+  - name: secondary
+    description: Secondary action button with medium emphasis
+
+  - name: tertiary
+    description: Low emphasis button for less important actions
+
+  - name: as-link
+    description: Button styled as a text link
+
+  - name: icon-only
+    description: Button containing only an icon without text label
+
+# Available sizes
+sizes:
+  - name: small
+    description: Compact button for dense interfaces
+
+  - name: medium
+    description: Standard button size for most use cases
+    default: true
+
+  - name: large
+    description: Larger button for prominent actions
+
+# Component states
+states:
+  - name: default
+    description: Normal resting state
+
+  - name: hover
+    description: Mouse cursor is over the button
+    trigger: ":hover"
+
+  - name: focus
+    description: Button has keyboard focus
+    trigger: ":focus"
+    accessibility: true
+
+  - name: active
+    description: Button is being pressed
+    trigger: ":active"
+
+  - name: disabled
+    description: Button cannot be interacted with
+    trigger: "disabled attribute or aria-disabled"
+    accessibility: true
+
+  - name: loading
+    description: Button is processing an action
+    accessibility: true
+
+# Props/Attributes
+props:
+  - name: label
+    type: string
+    description: Text content of the button
+    required: false
+    notes: Required unless icon-only variant
+
+  - name: icon
+    type: icon
+    description: Icon to display in the button
+    required: false
+
+  - name: iconPosition
+    type: enum
+    description: Position of icon relative to label
+    default: left
+    options:
+      - left
+      - right
+
+  - name: onClick
+    type: function
+    description: Callback function when button is clicked
+    required: false
+
+  - name: type
+    type: enum
+    description: HTML button type attribute
+    default: button
+    options:
+      - button
+      - submit
+      - reset
+
+  - name: disabled
+    type: boolean
+    description: Whether the button is disabled
+    default: false
+
+  - name: loading
+    type: boolean
+    description: Whether the button is in loading state
+    default: false
+
+  - name: ariaLabel
+    type: string
+    description: Accessible label for screen readers
+    required: false
+    notes: Required for icon-only variant
+
+  - name: ariaPressed
+    type: boolean
+    description: Indicates toggle button state
+    required: false
+
+  - name: ariaExpanded
+    type: boolean
+    description: Indicates if button controls an expandable element
+    required: false
+
+# Accessibility requirements
+accessibility:
+  role: button
+
+  keyboard:
+    - key: Enter
+      action: Activate button
+    - key: Space
+      action: Activate button
+
+  aria:
+    - attribute: aria-label
+      required: when icon-only variant is used
+      description: Provides accessible name when no visible text
+
+    - attribute: aria-pressed
+      required: when button acts as toggle
+      description: Indicates the pressed state (true/false)
+
+    - attribute: aria-expanded
+      required: when button controls expandable content
+      description: Indicates expanded state of controlled element
+
+    - attribute: aria-disabled
+      required: false
+      description: Alternative to disabled attribute for custom disabled styling
+
+  focus:
+    required: true
+    visible: true
+    description: Must have clear visual focus indicator
+
+  screen-reader:
+    - loading state should announce "loading" or "busy"
+    - disabled state should be announced
+    - icon-only buttons must have aria-label
+
+# Visual styling map (references design tokens)
+styling:
+  variants:
+    primary:
+      background: "colors.assignments.button.primary.background"
+      background-hover: "colors.assignments.button.primary.background-hover"
+      background-active: "colors.assignments.button.primary.background-active"
+      background-disabled: "colors.assignments.button.primary.background-disabled"
+      color: "colors.assignments.button.primary.text"
+      color-disabled: "colors.assignments.button.primary.text-disabled"
+      border-color: "colors.assignments.button.primary.border"
+      border-color-focus: "colors.assignments.button.primary.border-focus"
+      shadow: "effects.components.button.variants.primary.shadow"
+      shadow-hover: "effects.components.button.variants.primary.shadow-hover"
+
+    secondary:
+      background: "colors.assignments.button.secondary.background"
+      background-hover: "colors.assignments.button.secondary.background-hover"
+      background-active: "colors.assignments.button.secondary.background-active"
+      background-disabled: "colors.assignments.button.secondary.background-disabled"
+      color: "colors.assignments.button.secondary.text"
+      color-disabled: "colors.assignments.button.secondary.text-disabled"
+      border-color: "colors.assignments.button.secondary.border"
+      border-color-hover: "colors.assignments.button.secondary.border-hover"
+      border-color-focus: "colors.assignments.button.secondary.border-focus"
+      border-color-disabled: "colors.assignments.button.secondary.border-disabled"
+      shadow: "effects.components.button.variants.secondary.shadow"
+
+    tertiary:
+      background: "colors.assignments.button.tertiary.background"
+      background-hover: "colors.assignments.button.tertiary.background-hover"
+      background-active: "colors.assignments.button.tertiary.background-active"
+      color: "colors.assignments.button.tertiary.text"
+      color-hover: "colors.assignments.button.tertiary.text-hover"
+      color-disabled: "colors.assignments.button.tertiary.text-disabled"
+      shadow: "effects.components.button.variants.tertiary.shadow"
+
+    as-link:
+      color: "colors.assignments.button.as-link.text"
+      color-hover: "colors.assignments.button.as-link.text-hover"
+      color-visited: "colors.assignments.button.as-link.text-visited"
+      color-disabled: "colors.assignments.button.as-link.text-disabled"
+
+    icon-only:
+      border-radius: "effects.components.button.variants.icon-only.border-radius"
+
+  sizes:
+    small:
+      padding-x: "spacing.components.button.small.padding-x"
+      padding-y: "spacing.components.button.small.padding-y"
+      gap: "spacing.components.button.small.gap"
+      min-height: "spacing.components.button.small.min-height"
+      font-size: "typography.components.button.small.font-size"
+      font-weight: "typography.components.button.small.font-weight"
+      line-height: "typography.components.button.small.line-height"
+      icon-size: 16
+
+    medium:
+      padding-x: "spacing.components.button.medium.padding-x"
+      padding-y: "spacing.components.button.medium.padding-y"
+      gap: "spacing.components.button.medium.gap"
+      min-height: "spacing.components.button.medium.min-height"
+      font-size: "typography.components.button.medium.font-size"
+      font-weight: "typography.components.button.medium.font-weight"
+      line-height: "typography.components.button.medium.line-height"
+      icon-size: 20
+
+    large:
+      padding-x: "spacing.components.button.large.padding-x"
+      padding-y: "spacing.components.button.large.padding-y"
+      gap: "spacing.components.button.large.gap"
+      min-height: "spacing.components.button.large.min-height"
+      font-size: "typography.components.button.large.font-size"
+      font-weight: "typography.components.button.large.font-weight"
+      line-height: "typography.components.button.large.line-height"
+      icon-size: 24
+
+    icon-only:
+      small: "spacing.components.button.icon-only.small"
+      medium: "spacing.components.button.icon-only.medium"
+      large: "spacing.components.button.icon-only.large"
+
+  common:
+    border-radius: "effects.components.button.border-radius"
+    border-width: "effects.components.button.border-width"
+    transition-duration: "effects.components.button.transition-duration"
+    transition-timing: "effects.components.button.transition-timing"
+    transition-property: "effects.components.button.transition-property"
+
+    focus:
+      ring-width: "effects.components.button.focus.ring-width"
+      ring-offset: "effects.components.button.focus.ring-offset"
+      ring-color: "effects.components.button.focus.ring-color"
+
+# Behavior specifications
+behavior:
+  - Loading state displays a spinner and prevents interaction
+  - Disabled state prevents all interaction and updates cursor
+  - Click handler should not fire when disabled or loading
+  - Icon-only buttons maintain square aspect ratio
+  - Focus follows standard browser tab order
+
+# Usage guidelines
+guidelines:
+  do:
+    - Use primary variant for the main action on a page
+    - Use secondary for important but not primary actions
+    - Use tertiary for less important or repeated actions
+    - Provide aria-label for icon-only buttons
+    - Use loading state for async operations
+
+  dont:
+    - Use multiple primary buttons in close proximity
+    - Use icon-only buttons without clear iconography
+    - Rely solely on color to convey disabled state
+    - Use as-link variant when a semantic link element is more appropriate
+
+# Examples of common use cases
+examples:
+  - name: Primary Action
+    props:
+      label: "Save Changes"
+      variant: primary
+      size: medium
+
+  - name: Cancel Action
+    props:
+      label: "Cancel"
+      variant: secondary
+      size: medium
+
+  - name: Icon Button
+    props:
+      icon: "close"
+      variant: icon-only
+      size: medium
+      ariaLabel: "Close dialog"
+
+  - name: Loading Button
+    props:
+      label: "Submitting..."
+      variant: primary
+      size: medium
+      loading: true
+      disabled: true
+

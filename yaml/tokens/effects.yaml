@@ -1,0 +1,153 @@
+# Effects Tokens
+# Design system visual effects: borders, shadows, transitions, and animations
+
+metadata:
+  name: Effects
+  description: Visual effects including borders, shadows, and transitions
+  version: 1.0.0
+
+# Border radius
+border-radius:
+  none: 0
+  sm: 4
+  base: 6
+  md: 8
+  lg: 12
+  xl: 16
+  "2xl": 24
+  full: 9999
+
+# Border widths
+border-width:
+  0: 0
+  1: 1
+  2: 2
+  4: 4
+  8: 8
+
+# Shadows
+shadows:
+  none: "none"
+  sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)"
+  base: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)"
+  md: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)"
+  lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)"
+  xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)"
+  "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+  inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.05)"
+
+# Focus rings
+focus:
+  ring-width: 2
+  ring-offset: 2
+  ring-color: "rgba(8, 145, 247, 0.5)"   # brand.primary.600 with opacity
+
+# Transitions
+transitions:
+  duration:
+    fast: "150ms"
+    base: "200ms"
+    slow: "300ms"
+    slower: "500ms"
+
+  timing:
+    linear: "linear"
+    ease: "ease"
+    ease-in: "ease-in"
+    ease-out: "ease-out"
+    ease-in-out: "ease-in-out"
+
+  property:
+    all: "all"
+    colors: "color, background-color, border-color"
+    opacity: "opacity"
+    transform: "transform"
+
+# Component effects assignments
+components:
+  button:
+    border-radius: "border-radius.base"
+    border-width: "border-width.1"
+    transition-duration: "transitions.duration.base"
+    transition-timing: "transitions.timing.ease-in-out"
+    transition-property: "transitions.property.colors"
+
+    focus:
+      ring-width: "focus.ring-width"
+      ring-offset: "focus.ring-offset"
+      ring-color: "focus.ring-color"
+
+    variants:
+      primary:
+        shadow: "shadows.sm"
+        shadow-hover: "shadows.md"
+
+      secondary:
+        shadow: "shadows.none"
+
+      tertiary:
+        shadow: "shadows.none"
+
+      icon-only:
+        border-radius: "border-radius.md"
+
+  link:
+    transition-duration: "transitions.duration.fast"
+    transition-timing: "transitions.timing.ease-in-out"
+    transition-property: "transitions.property.colors"
+
+    focus:
+      ring-width: "focus.ring-width"
+      ring-offset: "focus.ring-offset"
+      ring-color: "focus.ring-color"
+
+  input:
+    border-radius: "border-radius.base"
+    border-width: "border-width.1"
+    transition-duration: "transitions.duration.base"
+    transition-timing: "transitions.timing.ease-in-out"
+    transition-property: "transitions.property.colors"
+
+    focus:
+      ring-width: "focus.ring-width"
+      ring-offset: 0
+      ring-color: "focus.ring-color"
+
+    shadow: "shadows.sm"
+    shadow-focus: "shadows.md"
+
+  card:
+    border-radius: "border-radius.lg"
+    border-width: "border-width.1"
+    transition-duration: "transitions.duration.base"
+    transition-timing: "transitions.timing.ease-in-out"
+
+    variants:
+      default:
+        shadow: "shadows.sm"
+
+      interactive:
+        shadow: "shadows.sm"
+        shadow-hover: "shadows.md"
+
+      outlined:
+        shadow: "shadows.none"
+
+      elevated:
+        shadow: "shadows.lg"
+        shadow-hover: "shadows.xl"
+
+  dialog:
+    border-radius: "border-radius.xl"
+    shadow: "shadows.2xl"
+
+    overlay:
+      transition-duration: "transitions.duration.slow"
+      transition-timing: "transitions.timing.ease-in-out"
+      transition-property: "transitions.property.opacity"
+
+    content:
+      transition-duration: "transitions.duration.slow"
+      transition-timing: "transitions.timing.ease-out"
+      transition-property: "transitions.property.all"
+

@@ -1,0 +1,278 @@
+# Link Component
+# Navigation element for hyperlinks
+
+metadata:
+  name: Link
+  description: A semantic anchor element for navigation and external links
+  category: Navigation
+  version: 1.0.0
+  complexity: basic
+
+# Available variants
+variants:
+  - name: inline
+    description: Link within body text or paragraphs
+    default: true
+
+  - name: standalone
+    description: Link as a standalone element (not within text)
+
+  - name: nav
+    description: Link within navigation menus
+
+# Available sizes
+sizes:
+  - name: small
+    description: Smaller link for compact contexts
+
+  - name: medium
+    description: Standard link size
+    default: true
+
+  - name: large
+    description: Larger link for emphasis
+
+# Component states
+states:
+  - name: default
+    description: Normal resting state
+
+  - name: hover
+    description: Mouse cursor is over the link
+    trigger: ":hover"
+
+  - name: focus
+    description: Link has keyboard focus
+    trigger: ":focus"
+    accessibility: true
+
+  - name: active
+    description: Link is being clicked
+    trigger: ":active"
+
+  - name: visited
+    description: Link destination has been visited
+    trigger: ":visited"
+    accessibility: true
+
+# Props/Attributes
+props:
+  - name: href
+    type: string
+    description: URL or path the link navigates to
+    required: true
+
+  - name: children
+    type: node
+    description: Link text content or child elements
+    required: true
+
+  - name: target
+    type: enum
+    description: Where to open the linked document
+    default: _self
+    options:
+      - _self
+      - _blank
+      - _parent
+      - _top
+
+  - name: rel
+    type: string
+    description: Relationship between current and linked document
+    default: null
+    notes: Automatically set to "noopener noreferrer" when target is _blank
+
+  - name: external
+    type: boolean
+    description: Whether link points to external resource
+    default: false
+    notes: Adds external link icon and sets appropriate rel attribute
+
+  - name: download
+    type: boolean | string
+    description: Prompts user to download linked resource
+    default: false
+
+  - name: icon
+    type: icon
+    description: Icon to display with the link
+    required: false
+
+  - name: iconPosition
+    type: enum
+    description: Position of icon relative to text
+    default: right
+    options:
+      - left
+      - right
+
+  - name: ariaCurrent
+    type: enum
+    description: Indicates current page in navigation
+    required: false
+    options:
+      - page
+      - step
+      - location
+      - date
+      - time
+      - true
+      - false
+
+# Accessibility requirements
+accessibility:
+  role: link (implicit for <a> with href)
+
+  keyboard:
+    - key: Enter
+      action: Activate link
+
+  aria:
+    - attribute: aria-current
+      required: for navigation links indicating current page
+      description: Helps screen reader users understand their location
+
+    - attribute: aria-label
+      required: when link text is not descriptive
+      description: Provides accessible name when visible text is insufficient
+
+  focus:
+    required: true
+    visible: true
+    description: Must have clear visual focus indicator
+
+  screen-reader:
+    - Link text should be descriptive of destination
+    - Avoid generic text like "click here" or "read more"
+    - External links should be announced as such
+    - Downloaded content should be announced
+
+  color:
+    - Links must be distinguishable from surrounding text
+    - Must not rely solely on color (use underline)
+    - Maintain 4.5:1 contrast ratio for normal text
+
+# Visual styling map (references design tokens)
+styling:
+  variants:
+    inline:
+      color: "colors.assignments.link.inline.text"
+      color-hover: "colors.assignments.link.inline.text-hover"
+      color-visited: "colors.assignments.link.inline.text-visited"
+      text-decoration: "underline"
+      text-decoration-hover: "underline"
+      text-decoration-color: "colors.assignments.link.inline.underline"
+
+    standalone:
+      color: "colors.assignments.link.standalone.text"
+      color-hover: "colors.assignments.link.standalone.text-hover"
+      color-visited: "colors.assignments.link.standalone.text-visited"
+      text-decoration: "none"
+      text-decoration-hover: "underline"
+
+    nav:
+      color: "colors.assignments.link.nav.text"
+      color-hover: "colors.assignments.link.nav.text-hover"
+      color-active: "colors.assignments.link.nav.text-active"
+      text-decoration: "none"
+      text-decoration-hover: "none"
+
+  sizes:
+    small:
+      padding-x: "spacing.components.link.small.padding-x"
+      padding-y: "spacing.components.link.small.padding-y"
+      gap: "spacing.components.link.small.gap"
+      font-size: "typography.components.link.small.font-size"
+      font-weight: "typography.components.link.small.font-weight"
+      line-height: "typography.components.link.small.line-height"
+      icon-size: 14
+
+    medium:
+      padding-x: "spacing.components.link.medium.padding-x"
+      padding-y: "spacing.components.link.medium.padding-y"
+      gap: "spacing.components.link.medium.gap"
+      font-size: "typography.components.link.medium.font-size"
+      font-weight: "typography.components.link.medium.font-weight"
+      line-height: "typography.components.link.medium.line-height"
+      icon-size: 16
+
+    large:
+      padding-x: "spacing.components.link.large.padding-x"
+      padding-y: "spacing.components.link.large.padding-y"
+      gap: "spacing.components.link.large.gap"
+      font-size: "typography.components.link.large.font-size"
+      font-weight: "typography.components.link.large.font-weight"
+      line-height: "typography.components.link.large.line-height"
+      icon-size: 18
+
+  nav:
+    font-weight: "typography.components.link.nav.font-weight"
+    text-decoration: "typography.components.link.nav.text-decoration"
+
+  common:
+    transition-duration: "effects.components.link.transition-duration"
+    transition-timing: "effects.components.link.transition-timing"
+    transition-property: "effects.components.link.transition-property"
+
+    focus:
+      ring-width: "effects.components.link.focus.ring-width"
+      ring-offset: "effects.components.link.focus.ring-offset"
+      ring-color: "effects.components.link.focus.ring-color"
+
+# Behavior specifications
+behavior:
+  - External links (target="_blank") automatically include rel="noopener noreferrer"
+  - External links display an icon indicating they open in new window
+  - Nav links with aria-current="page" show active state styling
+  - Visited state styling persists based on browser history
+  - Icon position adapts based on iconPosition prop
+
+# Usage guidelines
+guidelines:
+  do:
+    - Use inline variant within paragraphs and text blocks
+    - Use standalone variant for links in lists or as discrete elements
+    - Use nav variant in navigation menus and sidebars
+    - Always provide descriptive link text
+    - Add aria-current="page" to current page in navigation
+    - Set external=true for links to external sites
+
+  dont:
+    - Use generic link text like "click here"
+    - Remove underlines from inline links without another visual indicator
+    - Open links in new window unless necessary (external sites)
+    - Use links for actions (use buttons instead)
+
+# Examples of common use cases
+examples:
+  - name: Inline Link
+    props:
+      href: "/docs/getting-started"
+      children: "Getting Started guide"
+      variant: inline
+      size: medium
+
+  - name: External Link
+    props:
+      href: "https://example.com"
+      children: "External Resource"
+      variant: standalone
+      external: true
+      target: _blank
+
+  - name: Navigation Link
+    props:
+      href: "/dashboard"
+      children: "Dashboard"
+      variant: nav
+      ariaCurrent: page
+
+  - name: Download Link
+    props:
+      href: "/assets/document.pdf"
+      children: "Download PDF"
+      download: true
+      icon: "download"
+      iconPosition: right
+
