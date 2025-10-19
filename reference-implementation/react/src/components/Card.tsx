@@ -11,7 +11,7 @@
  */
 
 import React from 'react';
-import './Card.css';
+import '../../../../shared/styles/components/card.css';
 
 export interface CardProps {
   /** Visual style variant */

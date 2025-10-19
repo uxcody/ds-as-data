@@ -4,151 +4,51 @@
  * Implementation based on YAML specification:
  * /yaml/components/dialog.yaml
  *
+ * Uses shared component styles via Constructable Stylesheets.
+ * Shared CSS: /shared/styles/components/dialog.css
+ *
  * Variants: modal, alert, confirmation
  * Sizes: small, medium, large, fullscreen
  * Features: focus trap, backdrop, keyboard handling, accessibility
  */
 
+// Import shared dialog styles
+import dialogStyles from '../../../../shared/styles/components/dialog.css?inline';
+
+// Create Constructable Stylesheet from shared CSS
+const sheet = new CSSStyleSheet();
+sheet.replaceSync(dialogStyles);
+
+// Additional Shadow DOM specific styles
+const shadowStyles = new CSSStyleSheet();
+shadowStyles.replaceSync(`
+  :host {
+    display: none;
+  }
+
+  :host([open]) {
+    display: block;
+  }
+
+  /* Slot handling */
+  slot {
+    display: contents;
+  }
+`);
+
+// Template for dialog structure
 const template = document.createElement('template');
 template.innerHTML = `
-  <style>
-    :host {
-      display: none;
-    }
-
-    :host([open]) {
-      display: block;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      padding: var(--spacing-4);
-      animation: fadeIn var(--transition-slow) ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .dialog {
-      background-color: var(--color-neutral-white);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-2xl);
-      padding: var(--spacing-6);
-      position: relative;
-      z-index: 1001;
-      max-height: 90vh;
-      overflow-y: auto;
-      animation: slideIn var(--transition-slow) ease-out;
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: scale(0.95) translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    /* Sizes */
-    .size-small { width: 400px; max-width: 90vw; }
-    .size-medium { width: 600px; max-width: 90vw; }
-    .size-large { width: 800px; max-width: 90vw; }
-    .size-fullscreen {
-      width: 100vw;
-      height: 100vh;
-      max-width: 100vw;
-      max-height: 100vh;
-      border-radius: 0;
-    }
-
-    .header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: var(--spacing-4);
-      padding-bottom: var(--spacing-4);
-      margin-bottom: var(--spacing-4);
-      border-bottom: 1px solid var(--color-neutral-200);
-    }
-
-    .title {
-      flex: 1;
-      font-size: var(--font-size-xl);
-      font-weight: var(--font-weight-semibold);
-      line-height: var(--line-height-tight);
-      color: var(--color-neutral-900);
-    }
-
-    .close-button {
-      flex-shrink: 0;
-      width: 32px;
-      height: 32px;
-      border: none;
-      background-color: transparent;
-      color: var(--color-neutral-600);
-      font-size: var(--font-size-xl);
-      cursor: pointer;
-      border-radius: var(--radius-base);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color var(--transition-fast);
-    }
-
-    .close-button:hover {
-      background-color: var(--color-neutral-100);
-      color: var(--color-neutral-900);
-    }
-
-    .close-button:focus-visible {
-      outline: var(--focus-ring-width) solid var(--focus-ring-color);
-      outline-offset: 0;
-    }
-
-    .content {
-      color: var(--color-neutral-900);
-      font-size: var(--font-size-base);
-      line-height: var(--line-height-relaxed);
-    }
-
-    .footer {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: var(--spacing-3);
-      padding-top: var(--spacing-4);
-      margin-top: var(--spacing-4);
-      border-top: 1px solid var(--color-neutral-200);
-    }
-
-    .dialog:focus {
-      outline: none;
-    }
-  </style>
-  <div class="overlay" part="overlay">
-    <div class="dialog" role="dialog" aria-modal="true" tabindex="-1" part="dialog">
-      <div class="header" part="header">
-        <div class="title" part="title"></div>
-        <button class="close-button" aria-label="Close dialog" part="close">✕</button>
+  <div class="ds-dialog-overlay" part="overlay">
+    <div class="ds-dialog" role="dialog" aria-modal="true" tabindex="-1" part="dialog">
+      <div class="ds-dialog__header" part="header">
+        <div class="ds-dialog__title" part="title"></div>
+        <button class="ds-dialog__close-button" aria-label="Close dialog" part="close">✕</button>
       </div>
-      <div class="content" part="content">
+      <div class="ds-dialog__content" part="content">
         <slot></slot>
       </div>
-      <div class="footer" part="footer">
+      <div class="ds-dialog__footer" part="footer">
         <slot name="footer"></slot>
       </div>
     </div>
@@ -157,36 +57,40 @@ template.innerHTML = `
 
 class DSDialog extends HTMLElement {
   static get observedAttributes() {
-    return ['open', 'title', 'size', 'variant', 'show-close-button', 'aria-label'];
+    return ['open', 'title', 'size', 'variant', 'aria-labelledby', 'aria-describedby'];
   }
 
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
+
+    // Adopt both shared and shadow-specific stylesheets
+    this.shadowRoot.adoptedStyleSheets = [sheet, shadowStyles];
+
+    // Append template
     this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-    this._overlay = this.shadowRoot.querySelector('.overlay');
-    this._dialog = this.shadowRoot.querySelector('.dialog');
-    this._title = this.shadowRoot.querySelector('.title');
-    this._closeButton = this.shadowRoot.querySelector('.close-button');
-    this._header = this.shadowRoot.querySelector('.header');
-    this._footer = this.shadowRoot.querySelector('.footer');
-    this._previousActiveElement = null;
+    // Cache DOM references
+    this._overlay = this.shadowRoot.querySelector('.ds-dialog-overlay');
+    this._dialog = this.shadowRoot.querySelector('.ds-dialog');
+    this._title = this.shadowRoot.querySelector('.ds-dialog__title');
+    this._closeButton = this.shadowRoot.querySelector('.ds-dialog__close-button');
+    this._content = this.shadowRoot.querySelector('.ds-dialog__content');
+    this._footer = this.shadowRoot.querySelector('.ds-dialog__footer');
 
-    // Event listeners
+    // Previous focus element for restoration
+    this._previousFocus = null;
+
+    // Event handlers
     this._closeButton.addEventListener('click', () => this.close());
 
     this._overlay.addEventListener('click', (e) => {
-      if (e.target === this._overlay && !this.hasAttribute('no-close-on-overlay')) {
+      if (e.target === this._overlay) {
         this.close();
       }
     });
 
-    this.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !this.hasAttribute('no-close-on-escape')) {
-        this.close();
-      }
-    });
+    this._handleKeyDown = this._handleKeyDown.bind(this);
   }
 
   connectedCallback() {
@@ -196,74 +100,123 @@ class DSDialog extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'open') {
       if (newValue !== null) {
-        this.handleOpen();
+        this._onOpen();
       } else {
-        this.handleClose();
+        this._onClose();
       }
     }
     this.updateDialog();
   }
 
   updateDialog() {
-    const title = this.getAttribute('title');
+    if (!this._dialog) return;
+
     const size = this.getAttribute('size') || 'medium';
-    const showCloseButton = !this.hasAttribute('hide-close-button');
-    const ariaLabel = this.getAttribute('aria-label');
+    const variant = this.getAttribute('variant') || 'modal';
+    const title = this.getAttribute('title');
+    const ariaLabelledby = this.getAttribute('aria-labelledby');
+    const ariaDescribedby = this.getAttribute('aria-describedby');
 
-    this._dialog.className = `dialog size-${size}`;
+    // Build class list using BEM naming
+    const classList = [
+      'ds-dialog',
+      `ds-dialog--${size}`,
+      variant && `ds-dialog--${variant}`
+    ].filter(Boolean);
 
+    this._dialog.className = classList.join(' ');
+
+    // Update title
     if (title) {
       this._title.textContent = title;
-      this._title.id = 'dialog-title';
-      this._dialog.setAttribute('aria-labelledby', 'dialog-title');
-    } else if (ariaLabel) {
-      this._dialog.setAttribute('aria-label', ariaLabel);
+      this._title.style.display = 'block';
+    } else {
+      this._title.style.display = 'none';
     }
 
-    this._closeButton.style.display = showCloseButton ? 'flex' : 'none';
+    // Update ARIA attributes
+    if (ariaLabelledby) {
+      this._dialog.setAttribute('aria-labelledby', ariaLabelledby);
+    } else if (title) {
+      this._dialog.setAttribute('aria-label', title);
+    }
 
-    // Check if footer has content
-    const footerSlot = this.shadowRoot.querySelector('slot[name="footer"]');
-    const hasFooterContent = footerSlot.assignedNodes().length > 0;
-    this._footer.style.display = hasFooterContent ? 'flex' : 'none';
+    if (ariaDescribedby) {
+      this._dialog.setAttribute('aria-describedby', ariaDescribedby);
+    }
   }
 
-  handleOpen() {
-    this._previousActiveElement = document.activeElement;
+  _onOpen() {
+    // Save previous focus
+    this._previousFocus = document.activeElement;
 
-    // Prevent body scroll
-    document.body.style.overflow = 'hidden';
+    // Add keyboard handler
+    document.addEventListener('keydown', this._handleKeyDown);
 
     // Focus the dialog
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       this._dialog.focus();
-    }, 100);
+    });
+
+    // Emit open event
+    this.dispatchEvent(new Event('dialog-open', { bubbles: true, composed: true }));
   }
 
-  handleClose() {
-    // Restore body scroll
-    document.body.style.overflow = '';
+  _onClose() {
+    // Remove keyboard handler
+    document.removeEventListener('keydown', this._handleKeyDown);
 
-    // Return focus
-    if (this._previousActiveElement) {
-      this._previousActiveElement.focus();
+    // Restore focus
+    if (this._previousFocus && typeof this._previousFocus.focus === 'function') {
+      this._previousFocus.focus();
+    }
+
+    // Emit close event
+    this.dispatchEvent(new Event('dialog-close', { bubbles: true, composed: true }));
+  }
+
+  _handleKeyDown(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      this.close();
+    }
+
+    // Simple focus trap
+    if (e.key === 'Tab') {
+      const focusableElements = this._dialog.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey && document.activeElement === firstElement) {
+        e.preventDefault();
+        lastElement.focus();
+      } else if (!e.shiftKey && document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement.focus();
+      }
     }
   }
 
+  // Public API
   open() {
     this.setAttribute('open', '');
-    this.dispatchEvent(new Event('dialog-open', { bubbles: true }));
   }
 
   close() {
     this.removeAttribute('open');
-    this.dispatchEvent(new Event('dialog-close', { bubbles: true }));
   }
 
-  get isOpen() {
-    return this.hasAttribute('open');
+  toggle() {
+    if (this.hasAttribute('open')) {
+      this.close();
+    } else {
+      this.open();
+    }
   }
 }
 
 customElements.define('ds-dialog', DSDialog);
 
+export default DSDialog;
