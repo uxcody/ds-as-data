@@ -269,14 +269,14 @@ demoRoot.innerHTML = `
     </div>
   </ds-dialog>
 
-  <ds-dialog id="alert-dialog" title="Warning" size="small" variant="alert" hide-close-button no-close-on-overlay no-close-on-escape>
+  <ds-dialog id="alert-dialog" title="Warning" size="small" variant="alert" show-close-button="false" close-on-overlay-click="false" close-on-escape="false">
     <p>Your session is about to expire. Please save your work.</p>
     <div slot="footer">
       <ds-button variant="primary" id="alert-ok">I Understand</ds-button>
     </div>
   </ds-dialog>
 
-  <ds-dialog id="confirm-dialog" title="Delete Item" size="small" variant="confirmation" hide-close-button>
+  <ds-dialog id="confirm-dialog" title="Delete Item" size="small" variant="confirmation" show-close-button="false">
     <p>Are you sure you want to delete this item? This action cannot be undone.</p>
     <div slot="footer">
       <ds-button variant="secondary" id="confirm-cancel">Cancel</ds-button>

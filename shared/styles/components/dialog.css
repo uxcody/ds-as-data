@@ -1,9 +1,19 @@
 /**
- * Dialog Styles
- * Based on YAML specification: /yaml/components/dialog.yaml
+ * Dialog Component Styles
+ *
+ * YAML Specification: /yaml/components/dialog.yaml
+ *
+ * This is the single source of truth for Dialog styling.
+ * Used by both React and Web Components implementations.
+ *
+ * Class Naming Convention: BEM (Block Element Modifier)
+ * - Block: .ds-dialog-overlay, .ds-dialog
+ * - Element: .ds-dialog__header, .ds-dialog__title, .ds-dialog__close-button, .ds-dialog__content, .ds-dialog__footer
+ * - Modifier: .ds-dialog--small, .ds-dialog--medium, .ds-dialog--large, .ds-dialog--fullscreen
  */
 
-/* Overlay/Backdrop */
+/* ==================== OVERLAY/BACKDROP ==================== */
+
 .ds-dialog-overlay {
   position: fixed;
   top: 0;
@@ -30,7 +40,8 @@
   }
 }
 
-/* Dialog Container */
+/* ==================== DIALOG CONTAINER ==================== */
+
 .ds-dialog {
   background-color: var(--color-neutral-white);
   border-radius: var(--radius-xl);
@@ -56,25 +67,27 @@
   }
 }
 
-/* Sizes - Small */
+/* ==================== SIZES ==================== */
+
+/* Small Size */
 .ds-dialog--small {
   width: 400px;
   max-width: 90vw;
 }
 
-/* Sizes - Medium */
+/* Medium Size */
 .ds-dialog--medium {
   width: 600px;
   max-width: 90vw;
 }
 
-/* Sizes - Large */
+/* Large Size */
 .ds-dialog--large {
   width: 800px;
   max-width: 90vw;
 }
 
-/* Sizes - Fullscreen */
+/* Fullscreen Size */
 .ds-dialog--fullscreen {
   width: 100vw;
   height: 100vh;
@@ -84,7 +97,8 @@
   padding: var(--spacing-8);
 }
 
-/* Dialog Header */
+/* ==================== HEADER ==================== */
+
 .ds-dialog__header {
   display: flex;
   align-items: flex-start;
@@ -103,7 +117,8 @@
   color: var(--color-neutral-900);
 }
 
-/* Close Button */
+/* ==================== CLOSE BUTTON ==================== */
+
 .ds-dialog__close-button {
   flex-shrink: 0;
   width: 32px;
@@ -131,7 +146,8 @@
   outline-offset: 0;
 }
 
-/* Dialog Content */
+/* ==================== CONTENT ==================== */
+
 .ds-dialog__content {
   color: var(--color-neutral-900);
   font-size: var(--font-size-base);
@@ -142,7 +158,8 @@
   margin-bottom: var(--spacing-4);
 }
 
-/* Dialog Footer */
+/* ==================== FOOTER ==================== */
+
 .ds-dialog__footer {
   display: flex;
   align-items: center;
@@ -153,7 +170,8 @@
   border-top: 1px solid var(--color-neutral-200);
 }
 
-/* Variant-specific styles */
+/* ==================== VARIANT-SPECIFIC STYLES ==================== */
+
 .ds-dialog--alert .ds-dialog__footer {
   justify-content: center;
 }
@@ -162,12 +180,15 @@
   justify-content: space-between;
 }
 
+/* ==================== STATES ==================== */
+
 /* Focus styles */
 .ds-dialog:focus {
   outline: none;
 }
 
-/* Responsive */
+/* ==================== RESPONSIVE ==================== */
+
 @media (max-width: 640px) {
   .ds-dialog-overlay {
     padding: 0;

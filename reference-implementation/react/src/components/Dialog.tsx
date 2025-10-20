@@ -11,7 +11,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import './Dialog.css';
+import '../../../../shared/styles/components/dialog.css';
 
 export interface DialogProps {
   /** Whether the dialog is visible */
@@ -179,7 +179,7 @@ export const Dialog: React.FC<DialogProps> = ({
         ref={dialogRef}
         className={dialogClassNames}
         role={variant === 'alert' ? 'alertdialog' : 'dialog'}
-        aria-modal="true"
+        aria-modal={true}
         aria-labelledby={title ? titleId : undefined}
         aria-label={!title ? ariaLabel : undefined}
         aria-describedby={ariaDescribedBy}

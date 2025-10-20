@@ -57,7 +57,17 @@ template.innerHTML = `
 
 class DSDialog extends HTMLElement {
   static get observedAttributes() {
-    return ['open', 'title', 'size', 'variant', 'aria-labelledby', 'aria-describedby'];
+    return [
+      'open',
+      'title',
+      'size',
+      'variant',
+      'show-close-button',
+      'close-on-overlay-click',
+      'close-on-escape',
+      'aria-labelledby',
+      'aria-describedby'
+    ];
   }
 
   constructor() {
@@ -85,7 +95,7 @@ class DSDialog extends HTMLElement {
     this._closeButton.addEventListener('click', () => this.close());
 
     this._overlay.addEventListener('click', (e) => {
-      if (e.target === this._overlay) {
+      if (e.target === this._overlay && this._shouldCloseOnOverlayClick()) {
         this.close();
       }
     });
@@ -134,6 +144,13 @@ class DSDialog extends HTMLElement {
       this._title.style.display = 'none';
     }
 
+    // Update close button visibility based on variant and attribute
+    if (this._shouldShowCloseButton()) {
+      this._closeButton.style.display = 'flex';
+    } else {
+      this._closeButton.style.display = 'none';
+    }
+
     // Update ARIA attributes
     if (ariaLabelledby) {
       this._dialog.setAttribute('aria-labelledby', ariaLabelledby);
@@ -144,6 +161,52 @@ class DSDialog extends HTMLElement {
     if (ariaDescribedby) {
       this._dialog.setAttribute('aria-describedby', ariaDescribedby);
     }
+
+    // Update role based on variant
+    if (variant === 'alert') {
+      this._dialog.setAttribute('role', 'alertdialog');
+    } else {
+      this._dialog.setAttribute('role', 'dialog');
+    }
+  }
+
+  // Helper method to determine if close button should be shown
+  _shouldShowCloseButton() {
+    const variant = this.getAttribute('variant') || 'modal';
+
+    // Check if attribute is explicitly set
+    if (this.hasAttribute('show-close-button')) {
+      return this.getAttribute('show-close-button') !== 'false';
+    }
+
+    // Default behavior based on variant (matches React implementation)
+    return variant === 'modal';
+  }
+
+  // Helper method to determine if overlay click should close dialog
+  _shouldCloseOnOverlayClick() {
+    const variant = this.getAttribute('variant') || 'modal';
+
+    // Check if attribute is explicitly set
+    if (this.hasAttribute('close-on-overlay-click')) {
+      return this.getAttribute('close-on-overlay-click') !== 'false';
+    }
+
+    // Default behavior: only modal allows overlay click to close
+    return variant === 'modal';
+  }
+
+  // Helper method to determine if escape key should close dialog
+  _shouldCloseOnEscape() {
+    const variant = this.getAttribute('variant') || 'modal';
+
+    // Check if attribute is explicitly set
+    if (this.hasAttribute('close-on-escape')) {
+      return this.getAttribute('close-on-escape') !== 'false';
+    }
+
+    // Default behavior: alert doesn't allow escape to close
+    return variant !== 'alert';
   }
 
   _onOpen() {
@@ -176,12 +239,14 @@ class DSDialog extends HTMLElement {
   }
 
   _handleKeyDown(e) {
-    if (e.key === 'Escape') {
+    // Handle Escape key
+    if (e.key === 'Escape' && this._shouldCloseOnEscape()) {
       e.preventDefault();
       this.close();
+      return;
     }
 
-    // Simple focus trap
+    // Focus trap for Tab key
     if (e.key === 'Tab') {
       const focusableElements = this._dialog.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
