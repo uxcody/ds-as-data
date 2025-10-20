@@ -14,9 +14,12 @@ ds-as-data/
 │   ├── components/       # Component YAML definitions
 │   ├── tokens/          # Design tokens (colors, spacing, typography)
 │   └── schemas/         # JSON schemas for validation
+├── shared/
+│   └── styles/          # Shared CSS for React & Web Components
 ├── reference-implementation/
 │   ├── react/           # React + TypeScript implementation
-│   └── web-components/  # Web Components implementation
+│   ├── web-components/  # Web Components implementation
+│   └── mobile/          # React Native + Expo implementation
 └── docs/                # Documentation
 ```
 
@@ -46,9 +49,9 @@ See the [documentation](./docs/README.md) for detailed information about the app
 
 ### Reference Implementations
 
-We have two reference implementations to prove the YAML specifications work across frameworks:
+We have three reference implementations to prove the YAML specifications work across web and mobile platforms:
 
-#### React Implementation
+#### React Implementation (Web)
 
 ```bash
 cd reference-implementation/react
@@ -57,7 +60,7 @@ npm run dev
 # Visit http://localhost:5173
 ```
 
-#### Web Components Implementation
+#### Web Components Implementation (Web)
 
 ```bash
 cd reference-implementation/web-components
@@ -66,23 +69,39 @@ npm run dev
 # Visit http://localhost:5174
 ```
 
-**Both implementations use the exact same YAML specifications** - proving the approach is truly framework-agnostic!
+#### React Native Implementation (Mobile)
+
+```bash
+cd reference-implementation/mobile
+npm install
+npm start
+# Press 'i' for iOS, 'a' for Android, or 'w' for web
+```
+
+**All three implementations use the exact same YAML specifications** - proving the approach is truly platform-agnostic!
 
 ## Proven Implementations
 
 The YAML definitions have been successfully implemented in:
-- ✅ **React** - Demonstrates component library approach
-- ✅ **Web Components** - Proves framework-agnostic usage
+- ✅ **React (Web)** - Modern component library with hooks and TypeScript
+- ✅ **Web Components** - Framework-agnostic custom elements
+- ✅ **React Native (Mobile)** - Native mobile apps for iOS and Android
+
+All implementations:
+- Use the exact same YAML component specifications
+- Share design tokens (colors, spacing, typography, etc.)
+- Maintain pixel-perfect visual consistency (web implementations)
+- Follow identical component behaviors and accessibility standards
 
 ## Future Platforms
 
 The same YAML definitions can guide implementations in:
 - iOS (Swift/SwiftUI)
 - Android (Kotlin/Jetpack Compose)
-- React Native
 - Flutter
 - Vue
 - Angular
+- Svelte
 - And more...
 
 ## License
