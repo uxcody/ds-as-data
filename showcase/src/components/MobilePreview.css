@@ -1,0 +1,288 @@
+/* Mobile Device Frame */
+.mobile-preview {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.mobile-preview__device {
+  width: 300px;
+  height: 600px;
+  background: #1a1a1a;
+  border-radius: 36px;
+  padding: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.mobile-preview--ios .mobile-preview__device {
+  border-radius: 42px;
+}
+
+.mobile-preview--android .mobile-preview__device {
+  border-radius: 28px;
+}
+
+.mobile-preview__notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.mobile-preview--ios .mobile-preview__notch-inner {
+  width: 150px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 0 0 20px 20px;
+}
+
+.mobile-preview--android .mobile-preview__camera {
+  width: 10px;
+  height: 10px;
+  background: #333;
+  border-radius: 50%;
+  margin-top: 16px;
+  border: 2px solid #1a1a1a;
+}
+
+.mobile-preview__screen {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-preview__status-bar {
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-4);
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: white;
+  border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.mobile-preview__time {
+  font-weight: 600;
+}
+
+.mobile-preview__icons {
+  display: flex;
+  gap: var(--spacing-2);
+  font-size: 0.875rem;
+}
+
+.mobile-preview__content {
+  flex: 1;
+  padding: var(--spacing-4);
+  overflow-y: auto;
+  background: #f5f5f5;
+}
+
+.mobile-preview__home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.mobile-preview__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-neutral-600);
+}
+
+/* Mobile Component Styles - Button */
+.mobile-component-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: default;
+  transition: all 0.2s;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  margin: var(--spacing-2) 0;
+}
+
+.mobile-component-button--small {
+  padding: 6px 12px;
+  font-size: 0.75rem;
+}
+
+.mobile-component-button--medium {
+  padding: 10px 16px;
+  font-size: 0.875rem;
+}
+
+.mobile-component-button--large {
+  padding: 14px 20px;
+  font-size: 1rem;
+}
+
+.mobile-component-button--primary {
+  background: var(--color-brand-primary-600);
+  color: white;
+}
+
+.mobile-component-button--secondary {
+  background: var(--color-brand-primary-100);
+  color: var(--color-brand-primary-700);
+  border: 2px solid var(--color-brand-primary-600);
+}
+
+.mobile-component-button--tertiary {
+  background: transparent;
+  color: var(--color-brand-primary-600);
+}
+
+.mobile-component-button--as-link {
+  background: transparent;
+  color: var(--color-brand-primary-600);
+  padding: 4px 0;
+}
+
+.mobile-component-button--icon-only {
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.mobile-component-button--disabled {
+  opacity: 0.5;
+}
+
+.mobile-component-button__spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Mobile Component Styles - Link */
+.mobile-component-link {
+  color: var(--color-brand-primary-600);
+  text-decoration: underline;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.mobile-component-link--standalone {
+  display: inline-block;
+  margin: var(--spacing-2) 0;
+  font-weight: 500;
+}
+
+.mobile-component-link--nav {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Mobile Component Styles - Input */
+.mobile-component-input {
+  margin: var(--spacing-3) 0;
+}
+
+.mobile-component-input__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-neutral-700);
+  margin-bottom: var(--spacing-1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.mobile-component-input__field {
+  padding: 12px;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 8px;
+  background: white;
+  font-size: 0.875rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: var(--color-neutral-600);
+}
+
+.mobile-component-input--error .mobile-component-input__field {
+  border-color: var(--color-error-600);
+}
+
+/* Mobile Component Styles - Card */
+.mobile-component-card {
+  background: white;
+  border-radius: 12px;
+  margin: var(--spacing-3) 0;
+  overflow: hidden;
+}
+
+.mobile-component-card--default {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-component-card--outlined {
+  border: 1px solid var(--color-neutral-300);
+}
+
+.mobile-component-card--elevated {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-component-card__header {
+  padding: var(--spacing-4);
+  border-bottom: 1px solid var(--color-neutral-200);
+  font-weight: 600;
+  font-size: 0.875rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.mobile-component-card__content {
+  padding: var(--spacing-4);
+  font-size: 0.8125rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: var(--color-neutral-700);
+}
+
+.mobile-component-card__footer {
+  padding: var(--spacing-4);
+  border-top: 1px solid var(--color-neutral-200);
+}
+
+/* Container for side-by-side mobile previews */
+.mobile-previews-container {
+  display: flex;
+  gap: var(--spacing-8);
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: var(--spacing-6);
+  background: var(--color-neutral-100);
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .mobile-previews-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .mobile-preview__device {
+    width: 260px;
+    height: 520px;
+  }
+}
+

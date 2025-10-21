@@ -20,6 +20,7 @@ ds-as-data/
 │   ├── react/           # React + TypeScript implementation
 │   ├── web-components/  # Web Components implementation
 │   └── mobile/          # React Native + Expo implementation
+├── showcase/            # Interactive showcase website
 └── docs/                # Documentation
 ```
 
@@ -45,9 +46,27 @@ The YAML files contain all the data necessary to implement components consistent
 
 ## Getting Started
 
-See the [documentation](./docs/README.md) for detailed information about the approach and architecture.
+### Showcase Website
+
+Experience the full "Components as Data" methodology through our interactive showcase:
+
+```bash
+cd showcase
+npm install
+npm run dev
+# Visit http://localhost:3000
+```
+
+The showcase includes:
+- 📱 **Live Component Demos** - Interactive examples of all components
+- 📋 **YAML Specifications** - View the specs that drive implementations
+- 🔄 **Code Comparisons** - See React vs Web Components vs React Native
+- 💡 **Philosophy** - Learn the methodology and principles
+- 🚀 **Getting Started Guide** - Step-by-step implementation instructions
 
 ### Reference Implementations
+
+See the [documentation](./docs/README.md) for detailed information about the approach and architecture.
 
 We have three reference implementations to prove the YAML specifications work across web and mobile platforms:
 

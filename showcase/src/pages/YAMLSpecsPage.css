@@ -1,0 +1,176 @@
+.yaml-specs-page {
+  min-height: 100vh;
+}
+
+.yaml-section {
+  padding: var(--spacing-12) 0;
+}
+
+.yaml-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-8);
+}
+
+.yaml-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-6);
+  margin-top: var(--spacing-8);
+}
+
+.yaml-feature {
+  background: var(--color-neutral-white);
+  padding: var(--spacing-6);
+  border-radius: 12px;
+  border: 2px solid var(--color-neutral-200);
+  text-align: center;
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-4);
+}
+
+.yaml-feature h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-3);
+}
+
+.yaml-feature p {
+  color: var(--color-neutral-600);
+  margin: 0;
+}
+
+.yaml-viewer-section {
+  padding: var(--spacing-12) 0;
+}
+
+.yaml-viewer-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-8);
+}
+
+.tabs {
+  display: flex;
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-6);
+  border-bottom: 2px solid var(--color-neutral-200);
+}
+
+.tab {
+  padding: var(--spacing-3) var(--spacing-6);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-neutral-600);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: -2px;
+}
+
+.tab:hover {
+  color: var(--color-brand-primary-600);
+  background: var(--color-brand-primary-50);
+}
+
+.tab.active {
+  color: var(--color-brand-primary-600);
+  border-bottom-color: var(--color-brand-primary-600);
+}
+
+.yaml-content {
+  background: var(--color-neutral-900);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.yaml-content pre {
+  margin: 0;
+  padding: var(--spacing-6);
+  overflow-x: auto;
+}
+
+.yaml-content code {
+  background: none;
+  padding: 0;
+  color: var(--color-neutral-100);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.yaml-benefits-section {
+  padding: var(--spacing-12) 0;
+}
+
+.yaml-benefits-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-8);
+}
+
+.benefits-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.benefit-item {
+  background: var(--color-neutral-50);
+  padding: var(--spacing-6);
+  border-radius: 12px;
+  border: 2px solid var(--color-neutral-200);
+}
+
+.benefit-item h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-3);
+}
+
+.benefit-item p {
+  color: var(--color-neutral-600);
+  margin: 0;
+}
+
+.cta-section {
+  text-align: center;
+  padding: var(--spacing-16) 0;
+  background: var(--color-brand-primary-50);
+  border-radius: 12px;
+  margin: var(--spacing-12) 0;
+}
+
+.cta-section h2 {
+  margin-bottom: var(--spacing-4);
+}
+
+.cta-section p {
+  font-size: 1.125rem;
+  color: var(--color-neutral-600);
+  max-width: 600px;
+  margin: 0 auto var(--spacing-6);
+}
+
+@media (max-width: 768px) {
+  .yaml-features {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    flex-direction: column;
+    border-bottom: none;
+  }
+
+  .tab {
+    border-bottom: 1px solid var(--color-neutral-200);
+    margin-bottom: 0;
+  }
+
+  .tab.active {
+    background: var(--color-brand-primary-50);
+  }
+}
+

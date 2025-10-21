@@ -1,0 +1,320 @@
+/* Import component styles from shared directory */
+@import url('../../../shared/styles/components/button.css');
+@import url('../../../shared/styles/components/link.css');
+@import url('../../../shared/styles/components/input.css');
+@import url('../../../shared/styles/components/card.css');
+@import url('../../../shared/styles/components/dialog.css');
+
+.components-page {
+  min-height: 100vh;
+}
+
+.page-header {
+  background: var(--color-brand-primary-50);
+  padding: var(--spacing-12) 0;
+  text-align: center;
+  border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-4);
+}
+
+.page-intro {
+  font-size: 1.25rem;
+  color: var(--color-neutral-600);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.component-section {
+  padding: var(--spacing-16) 0;
+  border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.component-section:last-child {
+  border-bottom: none;
+}
+
+.component-header-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+  flex-wrap: wrap;
+}
+
+.component-header-section h2 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.view-code-btn {
+  margin-left: auto;
+  padding: var(--spacing-2) var(--spacing-4);
+  background: var(--color-neutral-100);
+  border: 2px solid var(--color-neutral-300);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-neutral-700);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-mono);
+}
+
+.view-code-btn:hover {
+  background: var(--color-brand-primary-50);
+  border-color: var(--color-brand-primary-600);
+  color: var(--color-brand-primary-700);
+}
+
+.code-display {
+  background: var(--color-neutral-900);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: var(--spacing-8);
+  border: 2px solid var(--color-brand-primary-600);
+}
+
+.code-header {
+  background: var(--color-neutral-800);
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 1px solid var(--color-neutral-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.impl-selector {
+  display: flex;
+  gap: var(--spacing-2);
+  background: var(--color-neutral-900);
+  padding: var(--spacing-1);
+  border-radius: 6px;
+}
+
+.impl-btn {
+  padding: var(--spacing-2) var(--spacing-3);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-neutral-400);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.impl-btn:hover {
+  color: var(--color-neutral-200);
+  background: var(--color-neutral-800);
+}
+
+.impl-btn.active {
+  background: var(--color-brand-primary-600);
+  color: var(--color-neutral-white);
+}
+
+.code-display pre {
+  margin: 0;
+  padding: var(--spacing-4);
+  overflow-x: auto;
+}
+
+.code-display code {
+  background: none;
+  padding: 0;
+  color: var(--color-neutral-100);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  font-family: var(--font-mono);
+}
+
+.component-description {
+  font-size: 1.125rem;
+  color: var(--color-neutral-600);
+  margin-bottom: var(--spacing-8);
+}
+
+.demo-group {
+  margin-bottom: var(--spacing-12);
+}
+
+.demo-group:last-child {
+  margin-bottom: 0;
+}
+
+.demo-group h3 {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-6);
+  color: var(--color-neutral-700);
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-6);
+  align-items: start;
+}
+
+.demo-grid-full {
+  display: grid;
+  gap: var(--spacing-6);
+}
+
+.demo-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.demo-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  align-items: flex-start;
+}
+
+.demo-label {
+  font-size: 0.875rem;
+  color: var(--color-neutral-600);
+  font-weight: 500;
+}
+
+.input-demo {
+  max-width: 400px;
+}
+
+.mobile-preview-message {
+  background: var(--color-brand-primary-50);
+  border: 2px solid var(--color-brand-primary-200);
+  border-radius: 8px;
+  padding: var(--spacing-6);
+  text-align: center;
+}
+
+.mobile-preview-message p {
+  margin: 0;
+  color: var(--color-brand-primary-700);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.cta-section-component {
+  text-align: center;
+  padding: var(--spacing-16) 0;
+  background: var(--color-neutral-50);
+  border-radius: 12px;
+  margin: var(--spacing-12) 0;
+}
+
+.cta-section-component h2 {
+  margin-bottom: var(--spacing-4);
+}
+
+.cta-section-component p {
+  font-size: 1.125rem;
+  color: var(--color-neutral-600);
+  max-width: 600px;
+  margin: 0 auto var(--spacing-6);
+}
+
+/* Dialog Overlay Styles */
+.ds-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-4);
+}
+
+.ds-dialog {
+  background: var(--color-neutral-white);
+  border-radius: 12px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.ds-dialog--small {
+  width: 400px;
+}
+
+.ds-dialog--medium {
+  width: 600px;
+}
+
+.ds-dialog--large {
+  width: 800px;
+}
+
+.ds-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-6);
+  border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.ds-dialog__title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.ds-dialog__content {
+  padding: var(--spacing-6);
+}
+
+.ds-dialog__footer {
+  display: flex;
+  gap: var(--spacing-3);
+  justify-content: flex-end;
+  padding: var(--spacing-6);
+  border-top: 1px solid var(--color-neutral-200);
+}
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .component-header-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .component-header-section h2 {
+    font-size: 2rem;
+  }
+
+  .view-code-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .impl-selector {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .impl-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .demo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-grid-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
